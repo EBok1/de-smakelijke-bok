@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "De Smakelijke Bok",
+    "description": "A cozy collection of delicious recipes"
+  },
+  "nav": {
+    "home": "Home",
+    "recipes": "Recipes",
+    "about": "About",
+    "favorites": "Favorites"
+  },
+  "home": {
+    "welcome": "Welcome to De Smakelijke Bok",
+    "intro": "Discover delicious recipes, from quick weeknight meals to festive dishes. Here I share my favorite recipes with you!",
+    "featuredRecipes": "Featured Recipes",
+    "viewAllRecipes": "View All Recipes"
+  },
+  "recipes": {
+    "title": "Recipes",
+    "filter": {
+      "all": "All",
+      "appetizer": "Appetizer",
+      "mainCourse": "Main Course",
+      "dessert": "Dessert",
+      "sweet": "Sweet",
+      "savory": "Savory",
+      "easy": "Easy"
+    },
+    "noResults": "No recipes found",
+    "prepTime": "Prep Time",
+    "cookTime": "Cook Time",
+    "servings": "Servings",
+    "ingredients": "Ingredients",
+    "instructions": "Instructions"
+  },
+  "favorites": {
+    "title": "My Favorites",
+    "empty": "You don't have any favorite recipes yet. Click the heart on a recipe to add it!",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites"
+  },
+  "about": {
+    "title": "About De Smakelijke Bok",
+    "content": "Welcome! I'm a passionate home cook who loves sharing recipes with the world. This website is my digital cookbook where I collect all my favorite dishes - from grandma's classics to new discoveries.",
+    "whyName": "Why 'De Smakelijke Bok'?",
+    "whyNameContent": "Just like a goat that nibbles on everything, I love discovering all kinds of flavors and cuisines. From Italian pasta to Asian stir-fries - I try it all!"
+  },
+  "footer": {
+    "madeWith": "Made with",
+    "byName": "De Smakelijke Bok"
+  },
+  "common": {
+    "backToRecipes": "Back to recipes",
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  }
+}

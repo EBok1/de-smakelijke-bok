@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "title": "De Smakelijke Bok",
+    "description": "Een gezellige verzameling heerlijke recepten"
+  },
+  "nav": {
+    "home": "Home",
+    "recipes": "Recepten",
+    "about": "Over",
+    "favorites": "Favorieten"
+  },
+  "home": {
+    "welcome": "Welkom bij De Smakelijke Bok",
+    "intro": "Ontdek heerlijke recepten, van snelle doordeweekse maaltijden tot feestelijke gerechten. Hier deel ik mijn favoriete recepten met jou!",
+    "featuredRecipes": "Uitgelichte Recepten",
+    "viewAllRecipes": "Bekijk Alle Recepten"
+  },
+  "recipes": {
+    "title": "Recepten",
+    "filter": {
+      "all": "Alles",
+      "appetizer": "Voorgerecht",
+      "mainCourse": "Hoofdgerecht",
+      "dessert": "Dessert",
+      "sweet": "Zoet",
+      "savory": "Hartig",
+      "easy": "Makkelijk"
+    },
+    "noResults": "Geen recepten gevonden",
+    "prepTime": "Voorbereidingstijd",
+    "cookTime": "Bereidingstijd",
+    "servings": "Porties",
+    "ingredients": "Ingrediënten",
+    "instructions": "Bereiding"
+  },
+  "favorites": {
+    "title": "Mijn Favorieten",
+    "empty": "Je hebt nog geen favoriete recepten. Klik op het hartje bij een recept om het toe te voegen!",
+    "addToFavorites": "Voeg toe aan favorieten",
+    "removeFromFavorites": "Verwijder uit favorieten"
+  },
+  "about": {
+    "title": "Over De Smakelijke Bok",
+    "content": "Welkom! Ik ben een gepassioneerde thuiskok die graag recepten deelt met de wereld. Deze website is mijn digitale kookboek waar ik al mijn favoriete gerechten verzamel - van oma's klassiekers tot nieuwe ontdekkingen.",
+    "whyName": "Waarom 'De Smakelijke Bok'?",
+    "whyNameContent": "Net als een bok die overal van snoept, hou ik ervan om allerlei smaken en keukens te ontdekken. Van Italiaanse pasta tot Aziatische roerbakgerechten - ik probeer het allemaal!"
+  },
+  "footer": {
+    "madeWith": "Gemaakt met",
+    "byName": "De Smakelijke Bok"
+  },
+  "common": {
+    "backToRecipes": "Terug naar recepten",
+    "loading": "Laden...",
+    "error": "Er is iets misgegaan"
+  }
+}
