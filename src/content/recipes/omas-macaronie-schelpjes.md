@@ -2,7 +2,7 @@
 slug: "omas-macaronie-schelpjes"
 category: "main-course"
 tags: ["savory", "easy"]
-image: ""
+image: "/images/omas-macaroni-schelpjes.png"
 prepTime: "15 min"
 cookTime: "30 min"
 servings: 4
