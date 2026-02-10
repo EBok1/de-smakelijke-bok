@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
@@ -77,7 +77,7 @@ export default async function RecipeDetailPage({ params }: RecipeDetailPageProps
 
       {/* Recipe Content */}
       <section className="container mx-auto px-4 py-8 md:py-12">
-        <RecipeContent locale={locale} content={recipe.content} />
+        <RecipeContent content={recipe.content} />
       </section>
     </div>
   );
@@ -175,15 +175,15 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
   );
 }
 
-function RecipeContent({ locale, content }: { locale: string; content: string }) {
+function RecipeContent({ content }: { content: string }) {
   return (
-    <div className="prose prose-lg max-w-none
+    <div className="prose prose-lg max-w-none pt-8 pb-8
       prose-headings:font-heading prose-headings:text-brown-dark
-      prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
+      prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 first:prose-h2:mt-0
       prose-p:text-brown prose-p:leading-relaxed
       prose-li:text-brown prose-li:marker:text-sage
       prose-strong:text-brown-dark
-      prose-ul:my-4 prose-ol:my-4
+      prose-ul:my-6 prose-ol:my-6
     ">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>
         {content}
