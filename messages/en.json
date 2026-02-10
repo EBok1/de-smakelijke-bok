@@ -24,7 +24,9 @@
       "dessert": "Dessert",
       "sweet": "Sweet",
       "savory": "Savory",
-      "easy": "Easy"
+      "easy": "Easy",
+      "vegan": "Vegan",
+      "airfryer": "Air Fryer"
     },
     "noResults": "No recipes found",
     "prepTime": "Prep Time",

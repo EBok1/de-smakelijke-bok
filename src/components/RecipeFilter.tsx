@@ -27,6 +27,8 @@ export default function RecipeFilter({ locale }: RecipeFilterProps) {
     { value: 'sweet', label: t('sweet') },
     { value: 'savory', label: t('savory') },
     { value: 'easy', label: t('easy') },
+    { value: 'vegan', label: t('vegan') },
+    { value: 'airfryer', label: t('airfryer') },
   ];
 
   const updateFilter = (type: 'category' | 'tag', value: string) => {

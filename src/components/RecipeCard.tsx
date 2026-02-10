@@ -27,11 +27,13 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
     'dessert': t('dessert'),
   };
 
-  // Map tags to translation keys (for future use if tags are displayed)
+  // Map tags to translation keys
   const tagTranslations: Record<string, string> = {
     'sweet': t('sweet'),
     'savory': t('savory'),
     'easy': t('easy'),
+    'vegan': t('vegan'),
+    'airfryer': t('airfryer'),
   };
 
   // Calculate total time from prepTime and cookTime
@@ -77,11 +79,19 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
 
         {/* Content */}
         <div className="flex-1 flex flex-col">
-          {/* Category tag */}
-          <div className="mb-2">
+          {/* Category and tags */}
+          <div className="mb-2 flex flex-wrap gap-1.5">
             <span className={`tag text-xs ${categoryColors[recipe.category] || 'bg-cream-dark'}`}>
               {categoryTranslations[recipe.category] || recipe.category.replace('-', ' ')}
             </span>
+            {recipe.tags.slice(0, 2).map((tag) => (
+              <span 
+                key={tag} 
+                className="tag text-xs bg-cream-dark text-brown-light"
+              >
+                {tagTranslations[tag] || tag}
+              </span>
+            ))}
           </div>
 
           {/* Title */}

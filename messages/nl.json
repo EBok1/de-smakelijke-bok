@@ -24,7 +24,9 @@
       "dessert": "Dessert",
       "sweet": "Zoet",
       "savory": "Hartig",
-      "easy": "Makkelijk"
+      "easy": "Makkelijk",
+      "vegan": "Vegan",
+      "airfryer": "Airfryer"
     },
     "noResults": "Geen recepten gevonden",
     "prepTime": "Voorbereidingstijd",
