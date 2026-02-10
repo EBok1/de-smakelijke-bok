@@ -93,3 +93,7 @@ description:
 - 💡 Keep the lid off the pan, otherwise they'll get soggy.
 - 💡 Delicious with fresh fruit, a spoonful of yogurt or some syrup.
 - 💡 For a lactose-free version: use plant-based milk and margarine.
+
+---
+
+*Bron / Source: [Leuke Recepten](https://www.leukerecepten.nl/recepten/wentelteefjes/)*

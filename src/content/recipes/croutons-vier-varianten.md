@@ -123,3 +123,7 @@ description:
 - 💡 No air fryer? Fry them in a pan over medium-high heat or in the oven at 180°C (350°F).
 - 💡 Try cutting them into longer strips - perfect for dipping.
 - 💡 Store leftover croutons in a sealed container. They stay crispy for a few days.
+
+---
+
+*Bron / Source: [Leuke Recepten](https://www.leukerecepten.nl/recepten/3-x-croutons-maken/)*

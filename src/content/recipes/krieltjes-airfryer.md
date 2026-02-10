@@ -73,3 +73,7 @@ description:
 - 💡 Use pre-cooked baby potatoes from the supermarket - saves time and they turn out perfectly crispy.
 - 💡 Want them extra crispy? Cook them a few minutes longer or at a slightly higher temperature.
 - 💡 Great with a knob of herb butter or garlic sauce.
+
+---
+
+*Bron / Source: [Airfryer Totaal](https://www.airfryertotaal.nl/recepten/avond-en-diner/keer-op-keer-perfect-gegaarde-krieltjes-uit-jouw-airfryer-ook-erg-lekker-met-spekjes/1835/)*

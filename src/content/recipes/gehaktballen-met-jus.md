@@ -111,3 +111,7 @@ description:
 - 💡 Use medium eggs. For large eggs, add some extra breadcrumbs.
 - 💡 Roll the balls in flour before frying for a thicker gravy.
 - 💡 No nutmeg? Paprika powder or onion powder works too.
+
+---
+
+*Bron / Source: [Laura's Bakery](https://www.laurasbakery.nl/zelf-gehaktballen-maken/)*

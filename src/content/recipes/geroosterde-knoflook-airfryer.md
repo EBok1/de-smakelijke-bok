@@ -99,3 +99,7 @@ description:
 - 💡 Spread it on bread with some grilled veggies.
 - 💡 Perfect in soups or pasta sauces.
 - 💡 Keeps for a few days in the fridge, just in the foil or a container.
+
+---
+
+*Bron / Source: [Eetspiratie](https://www.eetspiratie.nl/geroosterde-knoflook-uit-de-airfryer/)*
