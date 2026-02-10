@@ -34,6 +34,20 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
     'easy': t('easy'),
   };
 
+  // Calculate total time from prepTime and cookTime
+  const getTotalTime = () => {
+    const parseMinutes = (timeStr: string): number => {
+      const match = timeStr.match(/(\d+)/);
+      return match ? parseInt(match[1], 10) : 0;
+    };
+    
+    const prepMinutes = parseMinutes(recipe.prepTime || '');
+    const cookMinutes = parseMinutes(recipe.cookTime || '');
+    const total = prepMinutes + cookMinutes;
+    
+    return total > 0 ? `${total} min` : recipe.prepTime;
+  };
+
   return (
     <Link 
       href={`/${locale}/recipes/${recipe.slug}`}
@@ -84,7 +98,7 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
           <div className="flex items-center gap-4 text-xs text-brown-light mt-auto pt-3 border-t border-cream">
             <span className="flex items-center gap-1">
               <ClockIcon />
-              {recipe.prepTime}
+              {getTotalTime()}
             </span>
             <span className="flex items-center gap-1">
               <UsersIcon />
