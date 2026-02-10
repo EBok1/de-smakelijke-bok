@@ -8,6 +8,7 @@ import remarkGfm from 'remark-gfm';
 import { getRecipeBySlug, getAllSlugs } from '@/lib/recipes';
 import FavoriteButton from '@/components/FavoriteButton';
 import CookingModeToggle from '@/components/CookingModeToggle';
+import PrintButton from '@/components/PrintButton';
 
 interface RecipeDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -112,7 +113,7 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
       {/* Back link */}
       <Link
         href={`/${locale}/recipes`}
-        className="inline-flex items-center gap-2 text-sage-dark hover:text-sage mb-4 font-medium"
+        className="inline-flex items-center gap-2 text-sage-dark hover:text-sage mb-4 font-medium print:hidden"
       >
         <span>←</span>
         {tCommon('backToRecipes')}
@@ -123,7 +124,7 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
         <h1 className="text-2xl md:text-4xl font-bold text-brown-dark">
           {recipe.title}
         </h1>
-        <FavoriteButton slug={recipe.slug} size="lg" />
+        <FavoriteButton slug={recipe.slug} size="lg" className="print:hidden" />
       </div>
 
       {/* Description */}
@@ -163,7 +164,8 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
             <strong>{t('servings')}:</strong> {recipe.servings}
           </span>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-start gap-3 print:hidden">
+          <PrintButton />
           <CookingModeToggle />
         </div>
       </div>
