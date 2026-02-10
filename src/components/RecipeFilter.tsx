@@ -28,6 +28,7 @@ export default function RecipeFilter({ locale }: RecipeFilterProps) {
     { value: 'savory', label: t('savory') },
     { value: 'easy', label: t('easy') },
     { value: 'vegan', label: t('vegan') },
+    { value: 'vegetarian', label: t('vegetarian') },
     { value: 'airfryer', label: t('airfryer') },
   ];
 

@@ -33,6 +33,7 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
     'savory': t('savory'),
     'easy': t('easy'),
     'vegan': t('vegan'),
+    'vegetarian': t('vegetarian'),
     'airfryer': t('airfryer'),
   };
 

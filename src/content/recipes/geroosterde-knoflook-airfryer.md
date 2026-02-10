@@ -1,26 +1,26 @@
 ---
 slug: "geroosterde-knoflook-airfryer"
 category: "appetizer"
-tags: ["vegan", "easy", "airfryer", "savory"]
+tags: ["vegan", "vegetarian", "easy", "airfryer", "savory"]
 image: "/images/geroosterde-knoflook.png"
 prepTime: "5 min"
 cookTime: "25 min"
-servings: 4
+servings: 1
 
 title:
   nl: "Geroosterde Knoflook uit de Airfryer"
   en: "Roasted Garlic from the Air Fryer"
 
 description:
-  nl: "Heerlijke geroosterde knoflook met een zachte, zoete en volle smaak. Perfect als smaakmaker in hummus, sauzen, aardappelpuree of als smeersel op brood."
-  en: "Delicious roasted garlic with a soft, sweet and rich flavor. Perfect as a flavor enhancer in hummus, sauces, mashed potatoes or as a spread on bread."
+  nl: "Zacht, zoet en vol van smaak - geroosterde knoflook is dé manier om je gerechten naar een hoger niveau te tillen. Makkelijk te maken en eindeloos te gebruiken!"
+  en: "Soft, sweet and full of flavor - roasted garlic is the way to take your dishes to the next level. Easy to make and endlessly versatile!"
 ---
 
 <!-- NL -->
 ## Ingrediënten
 
-- 4 hele knoflookbollen
-- 4 theelepels olijfolie
+- Hele knoflookbollen (zoveel als je wilt)
+- Olijfolie
 - Snufje zout
 
 ## Benodigheden
@@ -30,40 +30,40 @@ description:
 
 ## Bereiding
 
-1. **Bereid de knoflook voor**: Haal de losse schilletjes van de bollen knoflook en snijd de topjes eraf zodat de teentjes bloot komen te liggen.
+1. **Knoflook klaarmaken**: Verwijder het losse velletje aan de buitenkant en snijd de topjes van de bovenkant af. Zo liggen alle teentjes bloot.
 
-2. **Wikkel in folie**: Zet elke bol knoflook op een stuk aluminiumfolie.
+2. **Op folie leggen**: Leg elke bol op een stuk aluminiumfolie.
 
-3. **Voeg olie en zout toe**: Besprenkel de teentjes met een theelepel olijfolie per bol en bestrooi met een snufje zout.
+3. **Olie en zout**: Druppel wat olijfolie over de teentjes (ongeveer een theelepel per bol) en strooi er wat zout over.
 
-4. **Maak pakketjes**: Vouw het aluminiumfolie dicht naar boven om pakketjes te maken.
+4. **Inpakken**: Vouw de folie dicht zodat je kleine pakketjes krijgt.
 
-5. **Verwarm de airfryer**: Verwarm de airfryer 5 minuten voor op 200°C.
+5. **Airfryer voorverwarmen**: Laat de airfryer 5 minuten voorverwarmen op 200°C.
 
-6. **Bak de knoflook**: Doe de knoflookpakketjes in de airfryer en zet de temperatuur op 190°C voor 25 minuten.
+6. **Roosteren**: Leg de pakketjes in de airfryer en laat ze 25 minuten garen.
 
-7. **Controleer de gaarheid**: Haal er een pakketje uit en open de folie voorzichtig. Kijk of de teentjes zacht en smeuïg zijn. Zo niet, bak ze dan nog 5 minuten langer.
+7. **Controleren**: Pak één pakketje uit en kijk of de teentjes zacht zijn. Nog niet gaar? Geef ze dan nog 5 minuten extra.
 
-8. **Laat afkoelen**: Haal de pakketjes uit de airfryer, vouw open en laat even afkoelen tot je ze met je handen kunt aanraken.
+8. **Afkoelen**: Haal alles uit de airfryer en laat het even afkoelen tot je het kunt vasthouden.
 
-9. **Haal de knoflook eruit**: Knijp met je handen de knoflookbol uit. De teentjes zijn zo zacht dat het meteen een puree is. Je kunt ze ook één voor één 'uitwippen' met een vork.
+9. **Uitknijpen**: Je kunt met je handen de knoflook er uit knijpen. Het is zo zacht dat het vanzelf een puree wordt. Je kunt ze er ook met een vorkje 'uitwippen'.
 
 ## Tips
 
-- 💡 Maak er knoflookboter of kruidenboter van.
-- 💡 Meng het door aardappelpuree of stamppotten.
-- 💡 Heerlijk als smaakmaker in hummus of aioli.
-- 💡 Gebruik het als spread op sandwiches met geroosterde groenten.
-- 💡 Voeg toe aan tomatensoep of pastasauzen.
-- 💡 Bewaar geroosterde knoflook een paar dagen in de koelkast in folie of een afgesloten bakje.
+- 💡 Super lekker om knoflookboter of kruidenboter van te maken.
+- 💡 Roer het door je puree of stamppot.
+- 💡 Geeft hummus of aioli een extra kick.
+- 💡 Smeer het op brood met wat gegrilde groenten.
+- 💡 Past perfect in soep of pastasaus.
+- 💡 Houdt een paar dagen in de koelkast, gewoon in de folie of een bakje.
 
 ---
 
 <!-- EN -->
 ## Ingredients
 
-- 4 whole garlic bulbs
-- 4 teaspoons olive oil
+- Whole garlic bulbs (as many as you like)
+- Olive oil
 - Pinch of salt
 
 ## Equipment
@@ -73,29 +73,29 @@ description:
 
 ## Instructions
 
-1. **Prepare the garlic**: Remove the loose outer skin from the garlic bulbs and cut off the tops so that the cloves are exposed.
+1. **Prep the garlic**: Remove the loose papery skin on the outside and slice off the tops. This way all the cloves are exposed.
 
-2. **Wrap in foil**: Place each garlic bulb on a piece of aluminum foil.
+2. **Place on foil**: Set each bulb on a piece of aluminum foil.
 
-3. **Add oil and salt**: Drizzle the cloves with one teaspoon of olive oil per bulb and sprinkle with a pinch of salt.
+3. **Oil and salt**: Drizzle some olive oil over the cloves (about a teaspoon per bulb) and sprinkle with some salt.
 
-4. **Make packets**: Fold the aluminum foil up and closed to create packets.
+4. **Wrap it up**: Fold the foil to create little packets.
 
-5. **Preheat the air fryer**: Preheat the air fryer for 5 minutes at 200°C (400°F).
+5. **Preheat the air fryer**: Let your air fryer preheat for 5 minutes at 200°C (400°F).
 
-6. **Roast the garlic**: Place the garlic packets in the air fryer and set the temperature to 190°C (375°F) for 25 minutes.
+6. **Roast**: Place the packets in the air fryer and let them roast for 25 minutes.
 
-7. **Check for doneness**: Remove one packet and carefully open the foil. Check if the cloves are soft and creamy. If not, roast for another 5 minutes.
+7. **Check**: Unwrap one packet and see if the cloves are soft. Need more time? Give them another 5 minutes.
 
-8. **Let cool**: Remove the packets from the air fryer, open them and let cool until you can handle them with your hands.
+8. **Cool down**: Take everything out and let it cool until you can handle it.
 
-9. **Remove the garlic**: Squeeze the garlic bulb with your hands. The cloves are so soft they become a purée immediately. You can also pop them out one by one with a fork.
+9. **Squeeze it out**: You can squeeze the garlic out with your hands. It's so soft it becomes a purée on its own. You can also pop them out with a fork.
 
 ## Tips
 
-- 💡 Make garlic butter or herb butter with it.
-- 💡 Mix it into mashed potatoes or stews.
-- 💡 Delicious as a flavor enhancer in hummus or aioli.
-- 💡 Use it as a spread on sandwiches with roasted vegetables.
-- 💡 Add to tomato soup or pasta sauces.
-- 💡 Store roasted garlic in the fridge for a few days in foil or a sealed container.
+- 💡 Great for making garlic butter or herb butter.
+- 💡 Stir it through mashed potatoes or stews.
+- 💡 Gives hummus or aioli an extra kick.
+- 💡 Spread it on bread with some grilled veggies.
+- 💡 Perfect in soups or pasta sauces.
+- 💡 Keeps for a few days in the fridge, just in the foil or a container.

@@ -26,6 +26,7 @@
       "savory": "Savory",
       "easy": "Easy",
       "vegan": "Vegan",
+      "vegetarian": "Vegetarian",
       "airfryer": "Air Fryer"
     },
     "noResults": "No recipes found",
