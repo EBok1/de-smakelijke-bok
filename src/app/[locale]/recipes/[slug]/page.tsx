@@ -164,10 +164,12 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
             <strong>{t('servings')}:</strong> {recipe.servings}
           </span>
         </div>
-        <div className="ml-auto flex items-start gap-3 print:hidden">
-          <PrintButton />
-          <CookingModeToggle />
-        </div>
+      </div>
+
+      {/* Action buttons */}
+      <div className="flex flex-wrap items-start justify-start gap-6 pt-4 print:hidden">
+        <CookingModeToggle />
+        <PrintButton />
       </div>
     </>
   );

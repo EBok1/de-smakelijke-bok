@@ -72,7 +72,7 @@ export default function CookingModeToggle() {
   }
 
   return (
-    <div className="flex flex-col items-end gap-1">
+    <div className="flex flex-col items-center gap-1 max-w-[120px]">
       <button
         onClick={toggleCookingMode}
         className={`
@@ -93,7 +93,7 @@ export default function CookingModeToggle() {
           ${isActive ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}
         `} />
       </button>
-      <span className="text-xs text-brown-light">
+      <span className="text-xs text-brown-light text-center">
         {t('hint')}
       </span>
     </div>
