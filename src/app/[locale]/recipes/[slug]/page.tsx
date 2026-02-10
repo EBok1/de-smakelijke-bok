@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getRecipeBySlug, getAllSlugs } from '@/lib/recipes';
 import FavoriteButton from '@/components/FavoriteButton';
+import CookingModeToggle from '@/components/CookingModeToggle';
 
 interface RecipeDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -143,7 +144,7 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
       </div>
 
       {/* Meta */}
-      <div className="flex flex-wrap gap-6 text-sm text-brown-light border-t border-cream-dark pt-4">
+      <div className="flex flex-wrap items-center gap-6 text-sm text-brown-light border-t border-cream-dark pt-4">
         <div className="flex items-center gap-2">
           <ClockIcon />
           <span>
@@ -161,6 +162,9 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
           <span>
             <strong>{t('servings')}:</strong> {recipe.servings}
           </span>
+        </div>
+        <div className="ml-auto">
+          <CookingModeToggle />
         </div>
       </div>
     </>

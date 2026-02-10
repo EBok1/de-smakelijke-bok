@@ -56,5 +56,11 @@
     "backToRecipes": "Back to recipes",
     "loading": "Loading...",
     "error": "Something went wrong"
+  },
+  "cookingMode": {
+    "label": "Cooking Mode",
+    "turnOn": "Turn on cooking mode - screen stays on",
+    "turnOff": "Turn off cooking mode",
+    "hint": "Keeps your screen on while cooking"
   }
 }

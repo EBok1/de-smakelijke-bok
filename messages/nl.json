@@ -56,5 +56,11 @@
     "backToRecipes": "Terug naar recepten",
     "loading": "Laden...",
     "error": "Er is iets misgegaan"
+  },
+  "cookingMode": {
+    "label": "Kookstand",
+    "turnOn": "Kookstand inschakelen - scherm blijft aan",
+    "turnOff": "Kookstand uitschakelen",
+    "hint": "Houdt je scherm aan tijdens het koken"
   }
 }
