@@ -24,6 +24,7 @@ export default function LanguageSwitcher() {
           key={locale}
           href={pathWithoutLocale}
           locale={locale}
+          scroll={false}
           className={`
             px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200
             ${currentLocale === locale 
