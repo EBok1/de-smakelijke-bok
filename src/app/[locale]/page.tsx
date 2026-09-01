@@ -1,9 +1,10 @@
-import { useTranslations } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getFeaturedRecipes } from '@/lib/recipes';
-import RecipeCard from '@/components/RecipeCard';
+import { useTranslations } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import Image from "next/image";
+import Link from "next/link";
+import { getFeaturedRecipes } from "@/lib/recipes";
+import RecipeCard from "@/components/RecipeCard";
+import VeggieBackground from "@/components/VeggieBackground";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -11,26 +12,26 @@ interface HomePageProps {
 
 export async function generateMetadata({ params }: HomePageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-  
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
   return {
-    title: t('title'),
-    description: t('description'),
+    title: t("title"),
+    description: t("description"),
   };
 }
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  
+
   // Enable static rendering
   setRequestLocale(locale);
-  
-  const recipes = getFeaturedRecipes(6, locale as 'nl' | 'en');
+
+  const recipes = getFeaturedRecipes(6, locale as "nl" | "en");
 
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-cream to-cream-dark py-12 md:py-20 overflow-hidden">
+      <section className="relative bg-linear-to-b from-cream to-cream-dark py-12 md:py-20 overflow-hidden">
         {/* Decorative background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-10 left-10 w-20 h-20 bg-peach-light rounded-full opacity-40 blur-xl" />
@@ -38,7 +39,7 @@ export default async function HomePage({ params }: HomePageProps) {
           <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-dusty-blue-light rounded-full opacity-30 blur-xl" />
         </div>
 
-        <div className="container mx-auto px-4 relative">
+        <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Mascot Image */}
             <div className="w-full md:w-1/2 flex justify-center">
@@ -59,6 +60,14 @@ export default async function HomePage({ params }: HomePageProps) {
             </div>
           </div>
         </div>
+
+        <div
+          className="absolute inset-0 overflow-hidden pointer-events-none"
+          aria-hidden="true"
+          style={{ zIndex: 0 }}
+        >
+          <VeggieBackground />
+        </div>
       </section>
 
       {/* Featured Recipes Section */}
@@ -72,42 +81,46 @@ export default async function HomePage({ params }: HomePageProps) {
 }
 
 function HomeContent({ locale }: { locale: string }) {
-  const t = useTranslations('home');
-  
+  const t = useTranslations("home");
+
   return (
     <>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brown-dark mb-4">
-        {t('welcome')}
+        {t("welcome")}
       </h1>
-      <p className="text-lg text-brown-light mb-8 max-w-lg">
-        {t('intro')}
-      </p>
+      <p className="text-lg text-brown-light mb-8 max-w-lg">{t("intro")}</p>
       <Link
         href={`/${locale}/recipes`}
         className="inline-flex items-center gap-2 px-6 py-3 bg-sage-dark font-heading font-semibold rounded-full hover:bg-brown-dark transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-        style={{ color: '#ffffff' }}
+        style={{ color: "#ffffff" }}
       >
-        {t('viewAllRecipes')}
+        {t("viewAllRecipes")}
         <span>→</span>
       </Link>
     </>
   );
 }
 
-function FeaturedRecipesSection({ locale, recipes }: { locale: string; recipes: ReturnType<typeof getFeaturedRecipes> }) {
-  const t = useTranslations('home');
+function FeaturedRecipesSection({
+  locale,
+  recipes,
+}: {
+  locale: string;
+  recipes: ReturnType<typeof getFeaturedRecipes>;
+}) {
+  const t = useTranslations("home");
 
   return (
     <>
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl md:text-3xl font-bold text-brown-dark">
-          {t('featuredRecipes')}
+          {t("featuredRecipes")}
         </h2>
         <Link
           href={`/${locale}/recipes`}
           className="text-sage-dark hover:text-sage font-medium hidden sm:flex items-center gap-1"
         >
-          {t('viewAllRecipes')}
+          {t("viewAllRecipes")}
           <span>→</span>
         </Link>
       </div>
@@ -131,7 +144,7 @@ function FeaturedRecipesSection({ locale, recipes }: { locale: string; recipes: 
           href={`/${locale}/recipes`}
           className="inline-flex items-center gap-2 px-6 py-3 border-2 border-sage text-sage-dark font-heading font-semibold rounded-full hover:bg-sage hover:text-[#ffffff] transition-all duration-200"
         >
-          {t('viewAllRecipes')}
+          {t("viewAllRecipes")}
         </Link>
       </div>
     </>

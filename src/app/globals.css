@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
   /* Cozy Kawaii Color Palette - Light Mode */
-  --cream: #FBF7F0;
-  --cream-dark: #F5EDE3;
-  --sage: #9BAA8B;
-  --sage-dark: #7D8B6F;
-  --sage-light: #B8C4AC;
-  --peach: #E8B4A0;
-  --peach-light: #F5D5C8;
-  --peach-dark: #D49B86;
-  --dusty-blue: #9BB5C4;
-  --dusty-blue-light: #B8CCD8;
-  --brown: #6B5B4F;
-  --brown-light: #8B7B6B;
-  --brown-dark: #4A3F36;
-  
+  --cream: #fbf7f0;
+  --cream-dark: #f5ede3;
+  --sage: #9baa8b;
+  --sage-dark: #7d8b6f;
+  --sage-light: #b8c4ac;
+  --peach: #e8b4a0;
+  --peach-light: #f5d5c8;
+  --peach-dark: #d49b86;
+  --dusty-blue: #9bb5c4;
+  --dusty-blue-light: #b8ccd8;
+  --brown: #6b5b4f;
+  --brown-light: #8b7b6b;
+  --brown-dark: #4a3f36;
+
   /* Semantic colors */
   --background: var(--cream);
   --foreground: var(--brown);
@@ -25,18 +25,18 @@
   --primary-hover: var(--sage-dark);
   --secondary: var(--peach);
   --accent: var(--dusty-blue);
-  
+
   /* Typography */
-  --font-heading: 'Quicksand', sans-serif;
-  --font-body: 'Nunito', sans-serif;
-  
+  --font-heading: "Quicksand", sans-serif;
+  --font-body: "Nunito", sans-serif;
+
   /* Spacing */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-full: 9999px;
-  
+
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(107, 91, 79, 0.08);
   --shadow-md: 0 4px 16px rgba(107, 91, 79, 0.1);
@@ -45,24 +45,24 @@
 
 /* Dark Mode - Cozy Evening Theme */
 [data-theme="dark"] {
-  --cream: #2A2520;
-  --cream-dark: #1E1B18;
-  --sage: #8FA07F;
-  --sage-dark: #6B7D5E;
-  --sage-light: #A4B396;
-  --peach: #C4917D;
-  --peach-light: #D4A594;
-  --peach-dark: #B07A66;
-  --dusty-blue: #7A9AAB;
-  --dusty-blue-light: #8FAABB;
-  --brown: #D4C8BC;
-  --brown-light: #A89E94;
-  --brown-dark: #E8DED4;
-  
+  --cream: #2a2520;
+  --cream-dark: #1e1b18;
+  --sage: #8fa07f;
+  --sage-dark: #6b7d5e;
+  --sage-light: #a4b396;
+  --peach: #c4917d;
+  --peach-light: #d4a594;
+  --peach-dark: #b07a66;
+  --dusty-blue: #7a9aab;
+  --dusty-blue-light: #8faabb;
+  --brown: #d4c8bc;
+  --brown-light: #a89e94;
+  --brown-dark: #e8ded4;
+
   --background: var(--cream);
   --foreground: var(--brown);
   --card-bg: var(--cream-dark);
-  
+
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -94,10 +94,17 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   color: var(--brown-dark);
@@ -236,7 +243,8 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -245,7 +253,8 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 }
 
 @keyframes wiggle {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   25% {
@@ -266,6 +275,38 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 
 .animate-wiggle {
   animation: wiggle 0.5s ease-in-out;
+}
+
+/* Homepage veggie animation */
+@keyframes veggieFloat {
+  from {
+    transform: translateY(5vh) rotate(0deg);
+  }
+
+  to {
+    transform: translateY(-120vh) rotate(-360deg);
+  }
+}
+
+.veggie-decor {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.08));
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
+}
+
+.animate-veggie-float {
+  animation: veggieFloat linear 1;
+  animation-fill-mode: both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-veggie-float {
+    animation: none;
+  }
 }
 
 /* Heart animation for favorites */
@@ -345,14 +386,20 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   }
 
   /* Keep headings with their content */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     page-break-after: avoid;
     page-break-inside: avoid;
     color: black !important;
   }
 
   /* Keep lists together */
-  ul, ol {
+  ul,
+  ol {
     page-break-inside: avoid;
   }
 
