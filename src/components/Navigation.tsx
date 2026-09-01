@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import LanguageSwitcher from './LanguageSwitcher';
-import ThemeToggle from './ThemeToggle';
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 
 interface NavigationProps {
   locale: string;
@@ -13,24 +13,21 @@ interface NavigationProps {
 
 export default function Navigation({ locale }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = useTranslations('nav');
+  const t = useTranslations("nav");
 
   const navLinks = [
-    { href: `/${locale}`, label: t('home') },
-    { href: `/${locale}/recipes`, label: t('recipes') },
-    { href: `/${locale}/about`, label: t('about') },
-    { href: `/${locale}/favorites`, label: t('favorites'), icon: '♥' },
+    { href: `/${locale}`, label: t("home") },
+    { href: `/${locale}/recipes`, label: t("recipes") },
+    { href: `/${locale}/about`, label: t("about") },
+    { href: `/${locale}/favorites`, label: t("favorites"), icon: "♥" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-cream-dark transition-colors duration-300">
+    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-cream-dark transition-colors duration-300 p-4">
       <nav className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link 
-            href={`/${locale}`} 
-            className="flex items-center gap-2 group"
-          >
+          <Link href={`/${locale}`} className="flex items-center gap-2 group">
             <Image
               src="/images/logo.png"
               alt="De Smakelijke Bok"
@@ -71,19 +68,19 @@ export default function Navigation({ locale }: NavigationProps) {
               aria-expanded={isMenuOpen}
             >
               <div className="w-6 h-5 relative flex flex-col justify-between">
-                <span 
+                <span
                   className={`w-full h-0.5 bg-brown rounded-full transition-all duration-300 ${
-                    isMenuOpen ? 'rotate-45 translate-y-2' : ''
+                    isMenuOpen ? "rotate-45 translate-y-2" : ""
                   }`}
                 />
-                <span 
+                <span
                   className={`w-full h-0.5 bg-brown rounded-full transition-all duration-300 ${
-                    isMenuOpen ? 'opacity-0' : ''
+                    isMenuOpen ? "opacity-0" : ""
                   }`}
                 />
-                <span 
+                <span
                   className={`w-full h-0.5 bg-brown rounded-full transition-all duration-300 ${
-                    isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                    isMenuOpen ? "-rotate-45 -translate-y-2" : ""
                   }`}
                 />
               </div>
@@ -94,7 +91,7 @@ export default function Navigation({ locale }: NavigationProps) {
         {/* Mobile Menu */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? 'max-h-80 opacity-100 mt-4' : 'max-h-0 opacity-0'
+            isMenuOpen ? "max-h-80 opacity-100 mt-4" : "max-h-0 opacity-0"
           }`}
         >
           <div className="flex flex-col gap-2 py-4 border-t border-cream-dark">

@@ -3,8 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import { getFeaturedRecipes } from "@/lib/recipes";
-import RecipeCard from "@/components/RecipeCard";
 import VeggieBackground from "@/components/VeggieBackground";
+import FeaturedCards from "@/components/FeaturedCards";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -26,19 +26,12 @@ export default async function HomePage({ params }: HomePageProps) {
   // Enable static rendering
   setRequestLocale(locale);
 
-  const recipes = getFeaturedRecipes(6, locale as "nl" | "en");
+  const recipes = getFeaturedRecipes(4, locale as "nl" | "en");
 
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
       <section className="relative bg-linear-to-b from-cream to-cream-dark py-12 md:py-20 overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-peach-light rounded-full opacity-40 blur-xl" />
-          <div className="absolute bottom-10 right-10 w-32 h-32 bg-sage-light rounded-full opacity-30 blur-xl" />
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-dusty-blue-light rounded-full opacity-30 blur-xl" />
-        </div>
-
         <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Mascot Image */}
@@ -126,11 +119,7 @@ function FeaturedRecipesSection({
       </div>
 
       {recipes.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.slug} recipe={recipe} locale={locale} />
-          ))}
-        </div>
+        <FeaturedCards locale={locale} recipes={recipes} />
       ) : (
         <div className="text-center py-12 bg-cream-dark rounded-2xl">
           <p className="text-brown-light text-lg">

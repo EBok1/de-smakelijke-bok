@@ -158,7 +158,7 @@ export function filterRecipes(category?: string, tag?: string, locale: Locale = 
   return recipes;
 }
 
-export function getFeaturedRecipes(count: number = 6, locale: Locale = 'nl'): RecipeMeta[] {
+export function getFeaturedRecipes(count: number = 4, locale: Locale = 'nl'): RecipeMeta[] {
   const allRecipes = getAllRecipes(locale);
   return allRecipes.slice(0, count);
 }
