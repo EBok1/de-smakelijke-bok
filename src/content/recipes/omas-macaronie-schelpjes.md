@@ -29,7 +29,7 @@ description:
 ### Voor de vulling
 - 150 gram macaroni (of een restje van de dag ervoor)
 - 100 gram hamblokjes
-- 75 gram geraspte kaas (bijv. jong belegen)
+- 75 gram geraspte kaas
 
 ### Voor de topping
 - 2 eetlepels paneermeel
@@ -52,7 +52,7 @@ description:
 
 3. **Maak de roux**: Smelt de boter in een steelpan op laag vuur. Voeg de bloem toe en roer met een garde tot een glad papje. Laat 1-2 minuten zachtjes doorgaren op laag vuur (niet laten kleuren).
 
-4. **Maak de saus**: Voeg beetje bij beetje de melk toe terwijl je blijft roeren tot een gladde, gebonden saus ontstaat. Dit duurt ongeveer 5 minuten.
+4. **Maak de saus**: Voeg beetje bij beetje de melk toe (gebruik melk op kamertemperatuur voor een gladdere saus) terwijl je blijft roeren tot een gladde, gebonden saus ontstaat. Dit duurt ongeveer 5 minuten.
 
 5. **Breng op smaak**: Voeg de peper en Maggi toe. Proef en voeg eventueel wat extra kruiden toe.
 
@@ -91,7 +91,7 @@ description:
 ### For the filling
 - 150 grams macaroni (or leftover pasta)
 - 100 grams diced ham
-- 75 grams grated cheese (e.g. Gouda)
+- 75 grams grated cheese
 
 ### For the topping
 - 2 tablespoons breadcrumbs
@@ -114,7 +114,7 @@ description:
 
 3. **Make the roux**: Melt the butter in a saucepan over low heat. Add the flour and stir with a whisk until smooth. Let it cook gently for 1-2 minutes (don't let it brown).
 
-4. **Make the sauce**: Gradually add the milk while stirring continuously. Keep stirring until you have a smooth, thick sauce. This takes about 5 minutes.
+4. **Make the sauce**: Gradually add the milk (use milk at room temperature for a smoother sauce) while stirring continuously. Keep stirring until you have a smooth, thick sauce. This takes about 5 minutes.
 
 5. **Season the sauce**: Add the pepper and Maggi seasoning. Taste and adjust the seasoning if needed.
 

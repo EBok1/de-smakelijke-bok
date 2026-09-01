@@ -20,7 +20,7 @@ description:
 ## Ingrediënten
 
 ### Basis
-- 2 sneetjes brood (oud brood werkt prima)
+- 2 sneetjes brood (wat ouder brood werkt prima)
 - 4 eetlepels olijfolie
 - Klontje roomboter (optioneel)
 - Zout en peper
@@ -33,12 +33,12 @@ description:
 - Basis ingrediënten
 - 20 gram geraspte kaas
 - 1 theelepel uienpoeder
-- 1 teentje knoflook (fijngesneden)
+- 1 teentje knoflook
 
 ### Variant 3: Knoflook-rozemarijn
 - Basis ingrediënten
 - 2 takjes verse rozemarijn
-- 1 teentje knoflook (fijngesneden)
+- 1 teentje knoflook
 
 ### Variant 4: Pesto
 - Basis ingrediënten
@@ -56,7 +56,7 @@ description:
 
 2. **Airfryer voorverwarmen**: Laat de airfryer 5 minuten voorverwarmen op 180°C.
 
-3. **Mengen**: Doe de broodblokjes in een kom en meng met de olijfolie, boter en de ingrediënten van je gekozen variant.
+3. **Mengen**: Snijd de knoflook fijn als je voor variant 2 of 3 kiest. Doe de broodblokjes in een kom en meng met de olijfolie, boter en de ingrediënten van je gekozen variant.
 
 4. **Bakken**: Doe alles in de airfryer en bak 15 minuten tot ze goudbruin en knapperig zijn. Schud of roer halverwege even door.
 
@@ -88,12 +88,12 @@ description:
 - Base ingredients
 - 20 grams grated cheese
 - 1 teaspoon onion powder
-- 1 clove garlic (finely sliced)
+- 1 clove garlic
 
 ### Variation 3: Garlic-rosemary
 - Base ingredients
 - 2 sprigs fresh rosemary
-- 1 clove garlic (finely sliced)
+- 1 clove garlic
 
 ### Variation 4: Pesto
 - Base ingredients
@@ -111,7 +111,7 @@ description:
 
 2. **Preheat the air fryer**: Let the air fryer preheat for 5 minutes at 180°C (350°F).
 
-3. **Mix**: Put the bread cubes in a bowl and mix with the olive oil, butter and the ingredients from your chosen variation.
+3. **Mix**: Finely slice the garlic if you're making variation 2 or 3. Put the bread cubes in a bowl and mix with the olive oil, butter and the ingredients from your chosen variation.
 
 4. **Fry**: Put everything in the air fryer and fry for 15 minutes until golden brown and crispy. Shake or stir halfway through.
 

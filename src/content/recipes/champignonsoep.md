@@ -19,11 +19,11 @@ description:
 <!-- NL -->
 ## Ingrediënten
 
-- 500 gram champignons (in plakjes)
+- 500 gram champignons
 - 50 gram boter
 - 50 gram bloem
-- 2 uien (fijngesnipperd)
-- 2 tenen knoflook (fijngehakt)
+- 2 uien
+- 2 tenen knoflook
 - 1 theelepel gedroogde tijm
 - 800 ml groentebouillon (of 2 bouillonblokjes in heet water)
 - 200 ml slagroom of kookroom
@@ -36,9 +36,9 @@ description:
 
 ## Bereiding
 
-1. **Ui en knoflook fruiten**: Smelt een klein beetje boter in een soeppan en fruit de ui en knoflook tot ze glazig zijn.
+1. **Ui en knoflook fruiten**: Hak de uien en knoflook fijn. Smelt een klein beetje boter in een soeppan en fruit de ui en knoflook tot ze glazig zijn.
 
-2. **Champignons bakken**: Voeg de champignons toe en bak ze een paar minuten mee tot ze wat geslonken zijn. Strooi de tijm erbij.
+2. **Champignons bakken**: Snijd de champignons in plakjes. Voeg ze toe en bak een paar minuten mee tot ze wat geslonken zijn. Strooi de tijm erbij.
 
 3. **Roux maken**: Voeg de rest van de boter toe en laat smelten. Strooi de bloem erover en roer goed door. Laat dit een minuutje meebakken.
 
@@ -62,11 +62,11 @@ description:
 <!-- EN -->
 ## Ingredients
 
-- 500 grams mushrooms (sliced)
+- 500 grams mushrooms
 - 50 grams butter
 - 50 grams flour
-- 2 onions (finely chopped)
-- 2 cloves garlic (minced)
+- 2 onions
+- 2 cloves garlic
 - 1 teaspoon dried thyme
 - 800 ml vegetable stock (or 2 stock cubes in hot water)
 - 200 ml heavy cream or cooking cream
@@ -79,9 +79,9 @@ description:
 
 ## Instructions
 
-1. **Sauté onion and garlic**: Melt a little butter in a soup pot and sauté the onion and garlic until translucent.
+1. **Sauté onion and garlic**: Finely chop the onions and garlic. Melt a little butter in a soup pot and sauté the onion and garlic until translucent.
 
-2. **Cook the mushrooms**: Add the mushrooms and cook for a few minutes until they've reduced. Sprinkle in the thyme.
+2. **Cook the mushrooms**: Slice the mushrooms. Add them and cook for a few minutes until they've reduced. Sprinkle in the thyme.
 
 3. **Make the roux**: Add the rest of the butter and let it melt. Sprinkle the flour over and stir well. Let it cook for about a minute.
 
