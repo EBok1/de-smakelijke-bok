@@ -269,7 +269,7 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 }
 
 .featured-panel-card {
-  background: rgba(245, 237, 227, 0.96); /* cozy card bg */
+  background: rgba(245, 237, 227, 0.96);
   border-radius: 1.25rem;
   bottom: 2rem;
   box-shadow: var(--shadow-md);
@@ -279,9 +279,8 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   padding: 1.25rem 1.25rem;
   position: absolute;
   right: 2rem;
-  transform: translateY(12px);
   transition:
-    opacity 500ms ease-in,
+    opacity 0ms ease-in,
     transform 500ms ease-in;
 }
 
@@ -310,6 +309,10 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 .featured-panel.active .featured-panel-card {
   opacity: 1;
   transform: translateY(0);
+  transition:
+    opacity 500ms ease-in,
+    transform 500ms ease-in;
+  transition-delay: 0.5s;
 }
 
 @media (max-width: 480px) {
@@ -418,7 +421,7 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 /* Homepage veggie animation */
 @keyframes veggieFloat {
   from {
-    transform: translateY(5vh) rotate(0deg);
+    transform: translateY(10vh) rotate(0deg);
   }
 
   to {
