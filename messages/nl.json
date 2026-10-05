@@ -13,7 +13,18 @@
     "welcome": "Welkom bij De Smakelijke Bok",
     "intro": "Ontdek heerlijke recepten, van snelle doordeweekse maaltijden tot feestelijke gerechten. Hier deel ik mijn favoriete recepten met jou!",
     "featuredRecipes": "Uitgelichte Recepten",
-    "viewAllRecipes": "Bekijk Alle Recepten"
+    "viewAllRecipes": "Bekijk Alle Recepten",
+    "categories": {
+      "title": "Blader op categorie",
+      "mainCourse": "Hoofdgerechten",
+      "mainCourseDesc": "Stevige gerechten die iedereen naar tafel lokken",
+      "appetizer": "Voorgerechten",
+      "appetizerDesc": "Lichte hapjes om de maaltijd mee te beginnen",
+      "dessert": "Desserts",
+      "dessertDesc": "Zoete afsluiting van elke perfecte maaltijd",
+      "recipesCount": "{count, plural, =0 {geen recepten} one {# recept} other {# recepten}}",
+      "browse": "Bekijk recepten →"
+    }
   },
   "recipes": {
     "title": "Recepten",
