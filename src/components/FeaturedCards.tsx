@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import type { CSSProperties } from "react";
+import { useTransitionRouter } from "next-view-transitions";
 import type { RecipeMeta } from "@/lib/recipes";
 
 interface FeaturedCardsProps {
@@ -10,10 +11,18 @@ interface FeaturedCardsProps {
 }
 
 export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const safeRecipes = useMemo(() => recipes ?? [], [recipes]);
+
+  type ViewTransitionStyle = CSSProperties & {
+    viewTransitionName?: string;
+  };
+
+  const navigateToDetail = (recipeSlug: string) => {
+    router.push(`/${locale}/recipes/${recipeSlug}`);
+  };
 
   return (
     <div className="featured-panels">
@@ -37,6 +46,12 @@ export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
         const backgroundImage = recipe.image
           ? `url(${recipe.image})`
           : undefined;
+        // viewTransitionName must be unique in the document — only the active
+        // panel gets the name so the browser can match it to the detail page.
+        const panelStyle: ViewTransitionStyle = {
+          ...(backgroundImage ? { backgroundImage } : {}),
+          ...(isActive ? { viewTransitionName: "recipe-hero" } : {}),
+        };
         const firstSentence =
           recipe.description.match(/[^.!?]*[.!?]/)?.[0] ?? recipe.description;
 
@@ -47,10 +62,10 @@ export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
             role="button"
             tabIndex={0}
             aria-label={`Featured recipe: ${recipe.title}`}
-            style={backgroundImage ? { backgroundImage } : undefined}
+            style={panelStyle}
             onClick={() => {
               if (isActive) {
-                router.push(`/${locale}/recipes/${recipe.slug}`);
+                navigateToDetail(recipe.slug);
               } else {
                 setActiveIndex(i);
               }
@@ -59,7 +74,7 @@ export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 if (isActive) {
-                  router.push(`/${locale}/recipes/${recipe.slug}`);
+                  navigateToDetail(recipe.slug);
                 } else {
                   setActiveIndex(i);
                 }

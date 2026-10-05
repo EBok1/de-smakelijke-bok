@@ -2,8 +2,10 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { ViewTransitions } from 'next-view-transitions';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import ViewTransitionDirection from '@/components/ViewTransitionDirection';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -28,16 +30,19 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale}>
-      <body className="min-h-screen flex flex-col bg-cream">
-        <NextIntlClientProvider locale={locale} messages={messages}>
+    <ViewTransitions>
+      <html lang={locale}>
+        <body className="min-h-screen flex flex-col bg-cream">
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <ViewTransitionDirection />
           <Navigation locale={locale} />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </NextIntlClientProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

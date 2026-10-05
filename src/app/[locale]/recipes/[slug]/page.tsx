@@ -9,6 +9,7 @@ import { getRecipeBySlug, getAllSlugs } from '@/lib/recipes';
 import FavoriteButton from '@/components/FavoriteButton';
 import CookingModeToggle from '@/components/CookingModeToggle';
 import PrintButton from '@/components/PrintButton';
+import type { CSSProperties } from 'react';
 
 interface RecipeDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -41,16 +42,27 @@ export default async function RecipeDetailPage({ params }: RecipeDetailPageProps
   
   const recipe = getRecipeBySlug(slug, locale as 'nl' | 'en');
 
+  type ViewTransitionStyle = CSSProperties & {
+    viewTransitionName?: string;
+  };
+
+  const heroImageStyle: ViewTransitionStyle = {
+    viewTransitionName: "recipe-hero",
+  };
+
   if (!recipe) {
     notFound();
   }
 
   return (
-    <div className="animate-fade-in">
+    <div>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-cream to-cream-dark">
         {/* Image */}
-        <div className="relative h-64 md:h-96 w-full">
+        <div
+          className="relative h-64 md:h-96 w-full"
+          style={heroImageStyle}
+        >
           {recipe.image ? (
             <Image
               src={recipe.image}
