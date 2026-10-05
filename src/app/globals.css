@@ -582,3 +582,166 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
     background: transparent !important;
   }
 }
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(recipe-hero) {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-image-pair(recipe-hero) {
+  overflow: clip;
+  /* Fills the transparent corner pixels in the panel snapshot (the panel has
+     border-radius + overflow:hidden, so its corners are empty in the bitmap).
+     Only visible in those empty corner pixels — not over the image itself. */
+  background-color: var(--background);
+  animation: hero-border-radius-forward 600ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Stop the crossfade for the named element — the panel and hero use the same
+   photo so there is nothing to cross-dissolve. Hiding the old snapshot means
+   the background-color above only shows through the transparent corner pixels,
+   not through the images during the fade (which caused the white-wash effect). */
+::view-transition-old(recipe-hero) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(recipe-hero) {
+  animation: none;
+}
+
+[data-vt-direction="back"]::view-transition-image-pair(recipe-hero) {
+  animation: hero-border-radius-back 600ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes hero-border-radius-forward {
+  from { border-radius: 5rem; }
+  to   { border-radius: 0; }
+}
+
+@keyframes hero-border-radius-back {
+  from { border-radius: 0; }
+  to   { border-radius: 5rem; }
+}
+
+/* ═══════════════════════════════════════════════
+   Alphabet Soup Game
+   ═══════════════════════════════════════════════ */
+
+/* Letter tiles — positioned imperatively by the RAF loop */
+.soup-letter {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: white;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--brown-dark);
+  cursor: pointer;
+  user-select: none;
+  /* Use --rot custom property so hover/selected CSS can compose on top */
+  transform: rotate(var(--rot, 0rad));
+  box-shadow: 0 2px 5px rgba(107, 91, 79, 0.18);
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  z-index: 5;
+}
+
+.soup-letter:hover {
+  box-shadow: 0 4px 10px rgba(107, 91, 79, 0.28);
+}
+
+.soup-letter.selected {
+  background-color: var(--sage-dark);
+  color: white;
+  /* scale composes after the physics rotation */
+  transform: rotate(var(--rot, 0rad)) scale(1.12);
+  box-shadow: 0 4px 12px rgba(107, 91, 79, 0.3);
+}
+
+.soup-letter-pts {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  font-size: 9px;
+  font-weight: 400;
+  font-family: var(--font-body);
+  color: var(--brown-light);
+  line-height: 1;
+}
+
+.soup-letter.selected .soup-letter-pts {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Steam wisps above the bowl */
+.soup-steam {
+  position: absolute;
+  width: 7px;
+  background: linear-gradient(to top, transparent, rgba(255, 255, 255, 0.6));
+  border-radius: 50%;
+  animation: soup-steam 4s infinite ease-out;
+  opacity: 0;
+}
+
+@keyframes soup-steam {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  30%  { opacity: 0.5; }
+  70%  { opacity: 0.28; }
+  100% { opacity: 0; transform: translateY(-68px) scale(3); filter: blur(5px); }
+}
+
+/* Particle burst on word success */
+.soup-particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: soup-particle-fade 1.05s ease-out forwards;
+}
+
+@keyframes soup-particle-fade {
+  from { opacity: 1; transform: translate(0, 0); }
+  to   { opacity: 0; transform: translate(var(--tx, 0), var(--ty, 0)); }
+}
+
+/* Ripple on letter click */
+.soup-ripple {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.72) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: soup-ripple 0.55s ease-out forwards;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes soup-ripple {
+  to { transform: scale(2.5); opacity: 0; }
+}
+
+/* Word display success pulse */
+.soup-word-success {
+  animation: soup-word-success-pulse 0.55s ease-in-out;
+}
+
+@keyframes soup-word-success-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+/* Floating message toasts */
+@keyframes soup-msg {
+  0%  { opacity: 0; transform: translateY(-14px); }
+  15% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100%{ opacity: 0; transform: translateY(-10px); }
+}

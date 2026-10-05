@@ -5,6 +5,8 @@ import Link from "next/link";
 import { getFeaturedRecipes } from "@/lib/recipes";
 import VeggieBackground from "@/components/VeggieBackground";
 import FeaturedCards from "@/components/FeaturedCards";
+import CategoryMasonryGrid from "@/components/CategoryMasonryGrid";
+import AlphabetSoupGame from "@/components/AlphabetSoupGame";
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -69,6 +71,12 @@ export default async function HomePage({ params }: HomePageProps) {
           <FeaturedRecipesSection locale={locale} recipes={recipes} />
         </div>
       </section>
+
+      {/* Category Grid Section */}
+      <CategoryMasonryGrid locale={locale} />
+
+      {/* Alphabet Soup Game */}
+      <AlphabetSoupGame />
     </div>
   );
 }
