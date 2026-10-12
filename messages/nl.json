@@ -77,5 +77,32 @@
   "print": {
     "button": "Print",
     "title": "Print recept of sla op als PDF"
+  },
+  "soup": {
+    "title": "Alfabetsoep",
+    "subtitle": "Roer in de soep en spel woorden om punten te scoren!",
+    "englishNote": "Let op: de woorden moeten Engels zijn.",
+    "placeholder": "Klik op letters om een woord te spellen…",
+    "stir": "Roer de soep",
+    "submit": "Woord indienen",
+    "clear": "Wissen",
+    "foundWords": "Gevonden woorden",
+    "score": "Score: {score}",
+    "noWordsYet": "Nog geen woorden gevonden…",
+    "howToPlay": "Hoe speel je dit?",
+    "step1": "Klik en sleep in de soep om de letters te roeren",
+    "step2": "Klik op letters om een woord te maken (3+ letters)",
+    "step3": "Dien in om punten te verdienen — langere woorden geven bonuspunten!",
+    "shortcuts": "Sneltoetsen:",
+    "shortcutStir": "roeren",
+    "shortcutSubmit": "indienen",
+    "shortcutClear": "wissen",
+    "msgNeedLetters": "Je hebt minstens {min} letters nodig!",
+    "msgAlreadyFound": "Die had je al gevonden!",
+    "msgChecking": "“{word}” controleren…",
+    "msgNotValid": "Geen geldig woord!",
+    "msgPoints": "+{points} punten! 🎉",
+    "reset": "Opnieuw starten",
+    "msgReset": "Voortgang gereset."
   }
 }

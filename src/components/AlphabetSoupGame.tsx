@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 // ─── Static config ────────────────────────────────────────────────────────────
 
@@ -39,10 +40,17 @@ const PRE_VALID = new Set([
 ]);
 
 const TOTAL_LETTERS = 36;
-const LETTER_SIZE = 36;
+// Tiles are sized from the measured bowl radius instead of being fixed, so a
+// small phone bowl does not end up with overlapping bodies that jitter.
+const MAX_LETTER_SIZE = 36;
+const MIN_LETTER_SIZE = 22;
+// Keeps the 36 tiles at ~40% of the bowl area. Much above that and they are
+// permanently touching, which is what makes them jitter.
+const LETTER_SIZE_RATIO = 0.186;
 const MIN_WORD = 3;
 const STIR_MS = 2200;
 const DICT_API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const STORAGE_KEY = "de-smakelijke-bok-alphabet-soup-v1";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -66,6 +74,8 @@ interface Msg { id: number; text: string; type: "default"|"success"|"error"|"che
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function AlphabetSoupGame() {
+  const t = useTranslations("soup");
+
   // DOM refs
   const soupRef    = useRef<HTMLDivElement>(null);
   const spoonRef   = useRef<HTMLDivElement>(null);
@@ -81,6 +91,9 @@ export default function AlphabetSoupGame() {
   const [messages, setMessages]   = useState<Msg[]>([]);
   const [isStirring, setIsStirring] = useState(false);
   const [wordSuccessAnim, setWordSuccessAnim] = useState(false);
+
+  // localStorage persistence (so words/score survive refresh)
+  const hasLoadedStorageRef = useRef(false);
 
   // Non-reactive game state (mutated directly — no re-render needed)
   const g = useRef({
@@ -218,9 +231,10 @@ export default function AlphabetSoupGame() {
       if (gs.selected.map(l => l.letter).join("") === word) syncWord(gs.selected);
       return res.ok;
     } catch {
-      // Network failure — be generous and accept the word
-      gs.cache[word] = true;
-      return true;
+      // Network/API failure should NOT count as "valid", otherwise random
+      // selections look like they pass validation.
+      gs.cache[word] = false;
+      return false;
     }
   };
 
@@ -231,18 +245,18 @@ export default function AlphabetSoupGame() {
     const word = gs.selected.map(l => l.letter).join("");
 
     if (word.length < MIN_WORD) {
-      showMsg(`Need at least ${MIN_WORD} letters!`, "error");
+      showMsg(t("msgNeedLetters", { min: MIN_WORD }), "error");
       return;
     }
     if (gs.found.has(word)) {
-      showMsg("Already found that one!", "error");
+      showMsg(t("msgAlreadyFound"), "error");
       return;
     }
 
-    showMsg(`Checking "${word}"…`, "checking");
+    showMsg(t("msgChecking", { word }), "checking");
     const valid = await validateWord(word);
     if (!valid) {
-      showMsg("Not a valid word!", "error");
+      showMsg(t("msgNotValid"), "error");
       return;
     }
 
@@ -254,7 +268,7 @@ export default function AlphabetSoupGame() {
     gs.found.add(word);
     setScore(s => s + pts);
     setFoundWords(p => [...p, { word, points: pts }]);
-    showMsg(`+${pts} points! 🎉`, "success");
+    showMsg(t("msgPoints", { points: pts }), "success");
 
     // Particle burst at the word display position
     const wd = wordDisplayRef.current;
@@ -381,6 +395,15 @@ export default function AlphabetSoupGame() {
       };
       gs.bounds = bounds;
 
+      // Tiles keep a constant share of the bowl area at every screen size, so
+      // the desktop bowl still gets 36px tiles while a phone bowl gets ~29px.
+      const letterSize = Math.round(
+        Math.min(
+          MAX_LETTER_SIZE,
+          Math.max(MIN_LETTER_SIZE, bounds.radius * LETTER_SIZE_RATIO),
+        ),
+      );
+
       // Pre-populate validation cache so common words show "valid" immediately
       PRE_VALID.forEach(w => { gs.cache[w] = true; });
 
@@ -433,12 +456,15 @@ export default function AlphabetSoupGame() {
         const el = document.createElement("div");
         el.className = "soup-letter";
         el.innerHTML = `${letter}<span class="soup-letter-pts">${LETTER_PTS[letter]}</span>`;
+        el.style.width    = `${letterSize}px`;
+        el.style.height   = `${letterSize}px`;
+        el.style.fontSize = `${Math.round(letterSize * 0.47)}px`;
         soupEl.appendChild(el);
 
         const body = M.Bodies.rectangle(
           bounds.cx + (Math.random() - 0.5) * 20,
           bounds.cy + (Math.random() - 0.5) * 20,
-          LETTER_SIZE, LETTER_SIZE,
+          letterSize, letterSize,
           { restitution: 0.65, friction: 0.001, frictionAir: 0.055, density: 0.001 }
         );
         M.Body.setVelocity(body, {
@@ -461,8 +487,8 @@ export default function AlphabetSoupGame() {
       // that the .selected CSS scale() can compose on top without fighting us.
       const loop = () => {
         gs.letters.forEach(({ body, element }) => {
-          element.style.left = `${body.position.x - LETTER_SIZE / 2}px`;
-          element.style.top  = `${body.position.y - LETTER_SIZE / 2}px`;
+          element.style.left = `${body.position.x - letterSize / 2}px`;
+          element.style.top  = `${body.position.y - letterSize / 2}px`;
           element.style.setProperty("--rot", `${body.angle}rad`);
         });
         rafMain.current = requestAnimationFrame(loop);
@@ -491,6 +517,9 @@ export default function AlphabetSoupGame() {
       };
       const moveSpoon = (e: MouseEvent | TouchEvent) => {
         if (!gs.spooning || gs.stirring) return;
+        // On mobile, dragging should stay inside the game instead of
+        // scrolling the page.
+        if ("touches" in e) e.preventDefault();
         const { x, y, mvX, mvY } = getXY(e);
         dragSoup(x, y, mvX, mvY);
       };
@@ -555,6 +584,82 @@ export default function AlphabetSoupGame() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ─── localStorage persistence ──────────────────────────────────────────
+
+  // Load persisted progress on mount
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        hasLoadedStorageRef.current = true;
+        return;
+      }
+
+      const parsed = JSON.parse(raw) as {
+        score?: unknown;
+        foundWords?: unknown;
+      };
+
+      const scoreVal = typeof parsed.score === "number" ? parsed.score : 0;
+      const wordsVal = Array.isArray(parsed.foundWords) ? parsed.foundWords : [];
+
+      const safeWords: FoundWord[] = wordsVal.filter(
+        (w): w is FoundWord =>
+          !!w &&
+          typeof w.word === "string" &&
+          typeof w.points === "number",
+      );
+
+      // Update visible UI
+      setScore(scoreVal);
+      setFoundWords(safeWords);
+
+      // Update imperative game state to block duplicates
+      g.current.found = new Set(safeWords.map(w => w.word));
+      for (const w of safeWords) g.current.cache[w.word] = true;
+    } catch {
+      // ignore invalid localStorage
+    } finally {
+      hasLoadedStorageRef.current = true;
+    }
+  }, []);
+
+  // Persist progress whenever it changes (after initial load)
+  useEffect(() => {
+    if (!hasLoadedStorageRef.current) return;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ score, foundWords }),
+      );
+    } catch {
+      // ignore quota/security errors
+    }
+  }, [score, foundWords]);
+
+  const resetProgress = () => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+
+    g.current.found = new Set<string>();
+    setScore(0);
+    setFoundWords([]);
+
+    // Clear current in-progress selection
+    g.current.selected.forEach(l => {
+      l.selected = false;
+      l.element.classList.remove("selected");
+    });
+    g.current.selected = [];
+    setCurrentWord("");
+    setWordStatus("neutral");
+
+    showMsg(t("msgReset"), "default");
+  };
+
   // ─── Render ──────────────────────────────────────────────────────────────────
 
   return (
@@ -563,10 +668,15 @@ export default function AlphabetSoupGame() {
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-brown-dark font-heading mb-2">
-            🍲 Alphabet Soup
+            🍲 {t("title")}
           </h2>
           <p className="text-brown-light text-sm md:text-base">
-            Stir the soup and spell words to score points!
+            {t("subtitle")}
+          </p>
+          {/* The dictionary API only supports English, so the UI is localised
+              but the words players spell are not. */}
+          <p className="text-brown-light/70 text-xs md:text-sm mt-1">
+            {t("englishNote")}
           </p>
         </div>
 
@@ -582,11 +692,7 @@ export default function AlphabetSoupGame() {
               className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-[88%] h-4 rounded-full"
               style={{ background: "rgba(107,91,79,0.11)", filter: "blur(10px)", zIndex: 1 }}
             />
-            {/* Plate rim */}
-            <div
-              className="absolute bottom-0 left-0 w-full h-4 rounded-full"
-              style={{ background: "linear-gradient(to bottom, #f8f4ef, #e8e0d8)", zIndex: 2 }}
-            />
+            {/* Plate rim removed per mobile/desktop spacing request */}
             {/* Outer bowl — circular clip for everything inside */}
             <div
               className="absolute inset-0 rounded-full overflow-hidden"
@@ -596,10 +702,11 @@ export default function AlphabetSoupGame() {
                 zIndex: 3,
               }}
             >
-              {/* Soup surface — letter tiles are imperatively appended here */}
+              {/* Soup surface — letter tiles are imperatively appended here.
+                  Thinner bowl rim on phones buys the letters extra room. */}
               <div
                 ref={soupRef}
-                className="absolute inset-[16px] rounded-full overflow-hidden cursor-pointer"
+                className="absolute inset-[9px] md:inset-[16px] rounded-full overflow-hidden cursor-pointer"
                 style={{
                   background: "radial-gradient(ellipse at 38% 32%, #fde8d0 0%, #f5c89a 55%, #e8a864 100%)",
                   boxShadow: "inset 0 -10px 20px rgba(168,90,30,0.18), inset 0 10px 20px rgba(255,255,255,0.22)",
@@ -663,7 +770,7 @@ export default function AlphabetSoupGame() {
           >
             {currentWord || (
               <span className="text-brown-light/50 text-sm font-normal font-body tracking-normal">
-                Click letters to spell a word…
+                {t("placeholder")}
               </span>
             )}
           </div>
@@ -675,33 +782,41 @@ export default function AlphabetSoupGame() {
               disabled={isStirring}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-dusty-blue text-white hover:bg-dusty-blue-dark transition-all hover:-translate-y-0.5 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
             >
-              🥄 Stir Soup
+              🥄 {t("stir")}
             </button>
             <button
               onClick={submitWord}
               disabled={isStirring || currentWord.length < MIN_WORD}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-sage text-white hover:bg-sage-dark transition-all hover:-translate-y-0.5 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
             >
-              ✓ Submit Word
+              ✓ {t("submit")}
+            </button>
+            <button
+              type="button"
+              onClick={resetProgress}
+              disabled={isStirring}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-brown-dark text-white hover:bg-brown-dark/90 transition-all hover:-translate-y-0.5 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
+            >
+              ↻ {t("reset")}
             </button>
             <button
               onClick={clearSel}
               disabled={isStirring}
               className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-peach text-white hover:bg-peach-dark transition-all hover:-translate-y-0.5 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
             >
-              ✕ Clear
+              ✕ {t("clear")}
             </button>
           </div>
 
           {/* ── Scoreboard ── */}
           <div className="w-full bg-white rounded-2xl p-5 shadow-sm">
             <div className="flex justify-between items-center mb-3 pb-3 border-b border-cream-dark">
-              <h3 className="font-bold text-brown-dark font-heading text-lg">Found Words</h3>
-              <span className="font-bold text-sage-dark text-lg">Score: {score}</span>
+              <h3 className="font-bold text-brown-dark font-heading text-lg">{t("foundWords")}</h3>
+              <span className="font-bold text-sage-dark text-lg">{t("score", { score })}</span>
             </div>
             {foundWords.length === 0 ? (
               <p className="text-sm text-center py-2 text-brown-light/50">
-                No words found yet…
+                {t("noWordsYet")}
               </p>
             ) : (
               <div className="flex flex-wrap gap-2 max-h-[136px] overflow-y-auto pr-1">
@@ -722,16 +837,16 @@ export default function AlphabetSoupGame() {
 
           {/* ── Instructions ── */}
           <div className="w-full bg-white rounded-2xl p-5 shadow-sm mb-2">
-            <h3 className="font-bold text-brown-dark font-heading mb-2">How to play</h3>
+            <h3 className="font-bold text-brown-dark font-heading mb-2">{t("howToPlay")}</h3>
             <ol className="list-decimal list-inside space-y-1 text-sm text-brown-light">
-              <li>Click and drag in the soup to stir the letters around</li>
-              <li>Click letters to build a word (3+ letters)</li>
-              <li>Submit to earn points — longer words score a bonus!</li>
+              <li>{t("step1")}</li>
+              <li>{t("step2")}</li>
+              <li>{t("step3")}</li>
               <li>
-                Shortcuts:{" "}
-                <kbd className="px-1.5 py-0.5 bg-cream-dark rounded text-xs font-mono">Space</kbd> stir ·{" "}
-                <kbd className="px-1.5 py-0.5 bg-cream-dark rounded text-xs font-mono">Enter</kbd> submit ·{" "}
-                <kbd className="px-1.5 py-0.5 bg-cream-dark rounded text-xs font-mono">Esc</kbd> clear
+                {t("shortcuts")}{" "}
+                <kbd className="px-1.5 py-0.5 bg-cream-dark rounded text-xs font-mono">Space</kbd> {t("shortcutStir")} ·{" "}
+                <kbd className="px-1.5 py-0.5 bg-cream-dark rounded text-xs font-mono">Enter</kbd> {t("shortcutSubmit")} ·{" "}
+                <kbd className="px-1.5 py-0.5 bg-cream-dark rounded text-xs font-mono">Esc</kbd> {t("shortcutClear")}
               </li>
             </ol>
           </div>

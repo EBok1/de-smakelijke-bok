@@ -33,12 +33,12 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <div className="animate-fade-in">
       {/* Hero Section */}
-      <section className="relative bg-linear-to-b from-cream to-cream-dark py-12 md:py-20 overflow-hidden">
+      <section className="relative bg-linear-to-b from-cream to-cream-dark py-8 md:py-20 overflow-hidden">
         <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Mascot Image */}
             <div className="w-full md:w-1/2 flex justify-center">
-              <div className="relative w-64 h-64 md:w-80 md:h-80">
+              <div className="relative w-56 h-56 md:w-80 md:h-80">
                 <Image
                   src="/images/mascot.png"
                   alt="De Smakelijke Bok mascot"
@@ -89,7 +89,7 @@ function HomeContent({ locale }: { locale: string }) {
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brown-dark mb-4">
         {t("welcome")}
       </h1>
-      <p className="text-lg text-brown-light mb-8 max-w-lg">{t("intro")}</p>
+      <p className="text-base md:text-lg text-brown-light mb-8 max-w-lg">{t("intro")}</p>
       <Link
         href={`/${locale}/recipes`}
         className="inline-flex items-center gap-2 px-6 py-3 bg-sage-dark font-heading font-semibold rounded-full hover:bg-brown-dark transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"

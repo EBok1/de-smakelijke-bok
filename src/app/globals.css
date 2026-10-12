@@ -289,12 +289,15 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   color: var(--brown-dark);
   font-size: 2rem;
   font-weight: 800;
+  /* Long single-word recipe titles would otherwise push past the card edge */
+  overflow-wrap: anywhere;
 }
 
 .featured-panel-desc {
   color: var(--brown-light);
   margin-top: 0.5rem;
   font-size: 1.1rem;
+  overflow-wrap: anywhere;
 }
 
 .featured-panel.active {
@@ -317,16 +320,31 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 
 @media (max-width: 480px) {
   .featured-panels {
-    width: 100vw;
+    /* 100vw ignored the container padding and caused horizontal overflow */
+    width: 100%;
     height: 60vh;
+    /* Arrows move above the cards, so reserve room for them at the top */
+    padding: 3.5rem 0 0;
+    gap: 0.5rem;
+  }
+
+  .featured-nav-btn {
+    top: 0;
+    transform: none;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .featured-nav-btn-left {
+    left: auto;
+    right: 3rem;
   }
 
   .featured-panel {
     border-radius: 2.5rem;
   }
 
-  .featured-panel:nth-of-type(4),
-  .featured-panel:nth-of-type(5) {
+  .featured-panel-mobile-hidden {
     display: none;
   }
 
@@ -334,6 +352,7 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
     left: 1rem;
     right: 1rem;
     bottom: 1rem;
+    padding: 1rem;
   }
 
   .featured-panel-title {
@@ -671,7 +690,8 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   position: absolute;
   bottom: 2px;
   right: 3px;
-  font-size: 9px;
+  /* em so the point badge shrinks with the tile on small screens */
+  font-size: 0.55em;
   font-weight: 400;
   font-family: var(--font-body);
   color: var(--brown-light);

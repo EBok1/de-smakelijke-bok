@@ -77,5 +77,32 @@
   "print": {
     "button": "Print",
     "title": "Print recipe or save as PDF"
+  },
+  "soup": {
+    "title": "Alphabet Soup",
+    "subtitle": "Stir the soup and spell words to score points!",
+    "englishNote": "Note: words have to be English.",
+    "placeholder": "Click letters to spell a word…",
+    "stir": "Stir Soup",
+    "submit": "Submit Word",
+    "clear": "Clear",
+    "foundWords": "Found Words",
+    "score": "Score: {score}",
+    "noWordsYet": "No words found yet…",
+    "howToPlay": "How to play",
+    "step1": "Click and drag in the soup to stir the letters around",
+    "step2": "Click letters to build a word (3+ letters)",
+    "step3": "Submit to earn points — longer words score a bonus!",
+    "shortcuts": "Shortcuts:",
+    "shortcutStir": "stir",
+    "shortcutSubmit": "submit",
+    "shortcutClear": "clear",
+    "msgNeedLetters": "Need at least {min} letters!",
+    "msgAlreadyFound": "Already found that one!",
+    "msgChecking": "Checking “{word}”…",
+    "msgNotValid": "Not a valid word!",
+    "msgPoints": "+{points} points! 🎉",
+    "reset": "Start over",
+    "msgReset": "Progress reset."
   }
 }

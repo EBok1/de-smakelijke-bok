@@ -43,6 +43,10 @@ export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
 
       {safeRecipes.map((recipe, i) => {
         const isActive = i === activeIndex;
+        // Only two panels fit on a phone, so we show the active one plus the
+        // next in line. Picking them relative to activeIndex (instead of by
+        // CSS :nth-of-type) keeps the arrows working through the whole list.
+        const isNext = i === (activeIndex + 1) % safeRecipes.length;
         const backgroundImage = recipe.image
           ? `url(${recipe.image})`
           : undefined;
@@ -58,7 +62,9 @@ export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
         return (
           <div
             key={recipe.slug}
-            className={`featured-panel${isActive ? " active" : ""}`}
+            className={`featured-panel${isActive ? " active" : ""}${
+              isActive || isNext ? "" : " featured-panel-mobile-hidden"
+            }`}
             role="button"
             tabIndex={0}
             aria-label={`Featured recipe: ${recipe.title}`}
@@ -86,7 +92,7 @@ export default function FeaturedCards({ locale, recipes }: FeaturedCardsProps) {
               <p className="featured-panel-desc line-clamp-3">
                 {firstSentence}
               </p>
-              <div className="featured-panel-tags gap-2 flex flex-nowrap mt-3">
+              <div className="featured-panel-tags gap-2 flex flex-wrap sm:flex-nowrap mt-3">
                 {recipe.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
