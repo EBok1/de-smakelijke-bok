@@ -1,71 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap");
+/* Hallmark · genre: editorial (soft) · H9 frontispiece (home hero) · Letter (about)
+ * design-system: design.md · designed-as-app · theme: custom (see tokens.css)
+ * nav: existing (restyled via tokens) · footer: existing (restyled via tokens)
+ */
 @import "tailwindcss";
+@import "../../tokens.css";
 
 :root {
-  /* Cozy Kawaii Color Palette - Light Mode */
-  --cream: #fbf7f0;
-  --cream-dark: #f5ede3;
-  --sage: #9baa8b;
-  --sage-dark: #7d8b6f;
-  --sage-light: #b8c4ac;
-  --peach: #e8b4a0;
-  --peach-light: #f5d5c8;
-  --peach-dark: #d49b86;
-  --dusty-blue: #9bb5c4;
-  --dusty-blue-light: #b8ccd8;
-  --brown: #6b5b4f;
-  --brown-light: #8b7b6b;
-  --brown-dark: #4a3f36;
+  /* Legacy names: every page uses Tailwind classes built on these
+     (bg-cream, text-brown-dark, …). They now point at tokens.css, so
+     change colours there, not here. */
+  --cream: var(--color-paper);
+  --cream-dark: var(--color-paper-2);
+  --sage: var(--color-accent-soft);
+  --sage-dark: var(--color-accent);
+  --sage-light: var(--color-accent-tint);
+  --peach: var(--color-blush);
+  --peach-light: var(--color-blush-light);
+  --peach-dark: var(--color-blush-deep);
+  --dusty-blue: var(--color-sky);
+  --dusty-blue-light: var(--color-sky-light);
+  --dusty-blue-dark: var(--color-sky-deep);
+  --brown: var(--color-ink-2);
+  --brown-light: var(--color-muted);
+  --brown-dark: var(--color-ink);
 
   /* Semantic colors */
-  --background: var(--cream);
-  --foreground: var(--brown);
-  --card-bg: var(--cream-dark);
-  --primary: var(--sage);
-  --primary-hover: var(--sage-dark);
-  --secondary: var(--peach);
-  --accent: var(--dusty-blue);
+  --background: var(--color-paper);
+  --foreground: var(--color-ink-2);
+  --card-bg: var(--color-paper-2);
+  --primary: var(--color-accent-soft);
+  --primary-hover: var(--color-accent);
+  --secondary: var(--color-blush);
+  --accent: var(--color-sky);
 
   /* Typography */
-  --font-heading: "Quicksand", sans-serif;
-  --font-body: "Nunito", sans-serif;
+  --font-heading: var(--font-display);
 
-  /* Spacing */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
   --radius-xl: 24px;
-  --radius-full: 9999px;
+  --radius-full: var(--radius-pill);
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(107, 91, 79, 0.08);
-  --shadow-md: 0 4px 16px rgba(107, 91, 79, 0.1);
-  --shadow-lg: 0 8px 32px rgba(107, 91, 79, 0.12);
-}
-
-/* Dark Mode - Cozy Evening Theme */
-[data-theme="dark"] {
-  --cream: #2a2520;
-  --cream-dark: #1e1b18;
-  --sage: #8fa07f;
-  --sage-dark: #6b7d5e;
-  --sage-light: #a4b396;
-  --peach: #c4917d;
-  --peach-light: #d4a594;
-  --peach-dark: #b07a66;
-  --dusty-blue: #7a9aab;
-  --dusty-blue-light: #8faabb;
-  --brown: #d4c8bc;
-  --brown-light: #a89e94;
-  --brown-dark: #e8ded4;
-
-  --background: var(--cream);
-  --foreground: var(--brown);
-  --card-bg: var(--cream-dark);
-
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-sm: var(--shadow-card);
+  --shadow-md: var(--shadow-hover);
+  --shadow-lg: var(--shadow-hover);
 }
 
 @theme inline {
@@ -79,6 +55,7 @@
   --color-peach-dark: var(--peach-dark);
   --color-dusty-blue: var(--dusty-blue);
   --color-dusty-blue-light: var(--dusty-blue-light);
+  --color-dusty-blue-dark: var(--dusty-blue-dark);
   --color-brown: var(--brown);
   --color-brown-light: var(--brown-light);
   --color-brown-dark: var(--brown-dark);
@@ -88,6 +65,12 @@
   box-sizing: border-box;
 }
 
+/* clip, not hidden: hidden would break position: sticky */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -95,8 +78,8 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+    background-color var(--dur-slow) var(--ease-out),
+    color var(--dur-slow) var(--ease-out);
 }
 
 h1,
@@ -105,10 +88,14 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;
+  /* SOFT rounds Fraunces' serifs — this is what makes it storybook, not newspaper */
+  font-variation-settings: "SOFT" 100;
+  letter-spacing: -0.015em;
   color: var(--brown-dark);
-  line-height: 1.3;
+  line-height: 1.15;
 }
 
 /* Smooth scrolling */
@@ -124,18 +111,20 @@ html {
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid var(--sage);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
-/* Link styles - only apply to plain text links, not buttons */
-a:not(.btn):not([class*="bg-"]):not([class*="border-"]) {
+/* Link styles - only apply to plain text links, not buttons or links
+   that set their own text colour. This CSS is unlayered, so it would
+   otherwise beat Tailwind's text-* utilities whatever the specificity. */
+:where(a:not(.btn):not([class*="bg-"]):not([class*="border-"]):not([class*="text-"])) {
   color: var(--sage-dark);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
-a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
+:where(a:not(.btn):not([class*="bg-"]):not([class*="border-"]):not([class*="text-"])):hover {
   color: var(--sage);
 }
 
@@ -152,18 +141,28 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   border-radius: var(--radius-full);
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn.btn-primary {
-  background-color: var(--sage-dark);
-  color: #ffffff !important;
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink) !important;
 }
 
 .btn.btn-primary:hover {
-  background-color: var(--brown-dark);
-  color: #ffffff !important;
-  transform: translateY(-2px);
+  background-color: var(--color-ink);
+  color: var(--color-paper) !important;
+  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
@@ -186,8 +185,14 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 }
 
 .btn.btn-outline:hover {
-  background-color: var(--sage-dark);
-  color: #ffffff !important;
+  background-color: var(--color-accent);
+  color: var(--color-accent-ink) !important;
+}
+
+/* Placed after the :hover rules so pressing wins over hovering */
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Card styles */
@@ -227,19 +232,23 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   cursor: pointer;
   z-index: 10;
 
-  background: var(--sage-dark);
-  color: var(--cream);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
   display: flex;
   align-items: center;
   justify-content: center;
 
-  transition:
-    transform 150ms ease,
-    background-color 150ms ease;
+  transition: background-color var(--dur-fast) var(--ease-out);
 }
 
 .featured-nav-btn:hover {
-  background: var(--brown-dark);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.featured-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .featured-nav-btn-left {
@@ -269,11 +278,14 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 }
 
 .featured-panel-card {
+  /* The original cream; it stays cream in dark mode too, so its text stays dark */
+  --color-ink: oklch(30% 0.024 55);
+  --color-ink-2: oklch(42% 0.024 58);
   background: rgba(245, 237, 227, 0.96);
   border-radius: 1.25rem;
   bottom: 2rem;
   box-shadow: var(--shadow-md);
-  color: var(--brown-dark);
+  color: var(--color-ink);
   left: 2rem;
   opacity: 0;
   padding: 1.25rem 1.25rem;
@@ -286,25 +298,22 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 
 .featured-panel-title {
   margin: 0;
-  color: var(--brown-dark);
-  font-size: 2rem;
-  font-weight: 800;
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-weight: 600;
   /* Long single-word recipe titles would otherwise push past the card edge */
   overflow-wrap: anywhere;
 }
 
 .featured-panel-desc {
-  color: var(--brown-light);
+  color: var(--color-ink-2);
   margin-top: 0.5rem;
-  font-size: 1.1rem;
+  font-size: var(--text-base);
   overflow-wrap: anywhere;
 }
 
 .featured-panel.active {
-  box-shadow:
-    rgba(255, 255, 255, 0.1) 0 1px 1px 0 inset,
-    rgba(50, 50, 93, 0.25) 0 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0 30px 60px -30px;
+  box-shadow: var(--shadow-panel);
   filter: none;
   flex: 5;
 }
@@ -602,6 +611,238 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   }
 }
 
+/* ═══════════════════════════════════════════════
+   Homepage hero
+   ═══════════════════════════════════════════════ */
+
+/* Typographic link: the quiet second action next to a pill */
+.text-link {
+  font-weight: 600;
+  color: var(--color-ink);
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-rule-strong);
+  text-underline-offset: 0.3em;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.text-link:hover {
+  color: var(--color-accent);
+  text-decoration-color: currentColor;
+}
+
+/* Frontispiece — the illustration bleeds off the left edge */
+.frontis {
+  display: grid;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+.frontis-art {
+  position: relative;
+  aspect-ratio: 1024 / 585;
+  overflow: hidden;
+}
+
+.frontis-text {
+  min-width: 0;
+  max-width: 34rem;
+  padding-inline: var(--space-sm);
+}
+
+.frontis-title {
+  font-size: var(--text-display);
+  overflow-wrap: anywhere;
+  margin-bottom: var(--space-md);
+}
+
+.frontis-intro {
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+  max-width: 42ch;
+  margin-bottom: var(--space-lg);
+}
+
+/* Matches .container's 2rem side padding from 768px up */
+@media (min-width: 48rem) {
+  .frontis-text {
+    padding-inline: var(--space-lg);
+  }
+}
+
+@media (min-width: 60rem) {
+  .frontis {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-xl);
+    padding-block: var(--space-lg);
+  }
+
+  .frontis-art {
+    /* A little shorter than the drawing (1024 / 585); cover trims top and bottom */
+    aspect-ratio: 2 / 1;
+    border-radius: 0 var(--radius-plate) var(--radius-plate) 0;
+  }
+
+  /* Trim mostly from the floor, never the goat's ears */
+  .frontis-art img {
+    object-position: 50% 15%;
+  }
+
+  .frontis-text {
+    padding-inline: 0 var(--space-lg);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   About — "Title page" (see design.md § About)
+   ═══════════════════════════════════════════════ */
+
+.titlepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding-block: var(--space-lg) var(--space-3xl);
+  color: var(--color-ink-2);
+  font-size: var(--text-md);
+  line-height: 1.7;
+}
+
+.titlepage-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.titlepage-title {
+  font-size: clamp(2.5rem, 3.2vw + 1.25rem, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.titlepage-ornament {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--color-rule-strong);
+}
+
+.titlepage-ornament span {
+  width: 4rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.titlepage-subtitle {
+  max-width: 32rem;
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 100;
+  font-size: var(--text-lg);
+  line-height: 1.4;
+}
+
+/* The illustration has a white ground; multiply melts it into the paper,
+   and the mask fades its square edge out around the scene */
+.titlepage-art {
+  width: min(22rem, 70vw);
+  /* Pull the neighbours in — the faded edge already reads as space */
+  margin-block: calc(var(--space-lg) * -1) calc(var(--space-xl) * -1);
+  mix-blend-mode: multiply;
+  mask-image: radial-gradient(circle closest-side at 50% 52%, black 86%, transparent 98%);
+}
+
+.titlepage-art img {
+  width: 100%;
+  height: auto;
+}
+
+/* Multiply would sink the white ground into a dark page — frame it instead */
+[data-theme="dark"] .titlepage-art {
+  mix-blend-mode: normal;
+  mask-image: none;
+}
+
+[data-theme="dark"] .titlepage-art img {
+  border-radius: var(--radius-plate);
+}
+
+.titlepage-section {
+  width: 100%;
+  max-width: 47.5rem;
+}
+
+.titlepage-h2 {
+  margin-bottom: var(--space-lg);
+  text-align: center;
+  font-size: var(--text-display-s);
+}
+
+.titlepage-foreword {
+  max-width: 38rem;
+  margin-inline: auto;
+}
+
+/* Drop cap in the one accent */
+.titlepage-foreword::first-letter {
+  float: left;
+  padding: 0.35rem 0.6rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 4rem;
+  line-height: 0.85;
+  color: var(--color-accent);
+}
+
+.qa-row {
+  display: grid;
+  gap: var(--space-2xs) var(--space-lg);
+  padding-block: var(--space-md);
+  border-top: 1px solid var(--color-rule);
+}
+
+.qa-row:last-child {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.qa-q {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  font-size: var(--text-lg);
+  line-height: 1.3;
+  color: var(--color-ink);
+}
+
+.titlepage-close {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+
+.titlepage-signature {
+  display: block;
+  font-size: var(--text-xl);
+  line-height: 1.2;
+}
+
+@media (min-width: 48rem) {
+  .qa-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+}
+
 @view-transition {
   navigation: auto;
 }
@@ -650,6 +891,16 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
 /* ═══════════════════════════════════════════════
    Alphabet Soup Game
    ═══════════════════════════════════════════════ */
+
+/* The bowl, tiles and score cards are white in both themes, so their text
+   stays dark too (the theme would otherwise turn it light-on-white). */
+.soup-paper {
+  --brown-dark: oklch(30% 0.024 55);
+  --brown: oklch(42% 0.024 58);
+  --brown-light: oklch(50% 0.022 65);
+  --cream-dark: oklch(94% 0.016 72);
+  color: var(--brown);
+}
 
 /* Letter tiles — positioned imperatively by the RAF loop */
 .soup-letter {
@@ -764,4 +1015,438 @@ a:not(.btn):not([class*="bg-"]):not([class*="border-"]):hover {
   15% { opacity: 1; transform: translateY(0); }
   80% { opacity: 1; transform: translateY(0); }
   100%{ opacity: 0; transform: translateY(-10px); }
+}
+
+/* ═══════════════════════════════════════════════
+   Recipe hover — a blush marker under the title, no lifting cards
+   ═══════════════════════════════════════════════ */
+
+.recipe-card,
+.recipe-card:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.recipe-card-img,
+.chapter-tile-img {
+  transition: filter var(--dur-base) var(--ease-out);
+}
+
+.group:hover .recipe-card-img,
+.group:hover .chapter-tile-img {
+  filter: brightness(1.05) saturate(1.08);
+}
+
+/* Blush marker that sweeps under the title on hover, like underlining a
+   recipe in your cookbook. Sits on an inner .marker span so it follows the
+   text across line breaks instead of filling the whole block. */
+.recipe-title .marker {
+  padding-inline: 0.1em;
+  background-image: linear-gradient(
+    color-mix(in oklch, var(--color-blush) 55%, var(--color-paper)),
+    color-mix(in oklch, var(--color-blush) 55%, var(--color-paper))
+  );
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 0% 40%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size var(--dur-slow) var(--ease-out);
+}
+
+.group:hover .recipe-title .marker,
+.group:focus-visible .recipe-title .marker {
+  background-size: 100% 40%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recipe-title .marker {
+    transition-duration: var(--dur-fast);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Category grid — coloured chapter pages with a dish on a plate
+   ═══════════════════════════════════════════════ */
+
+.chapter-tile {
+  --tile: var(--sage-light);
+  position: relative;
+  display: flex;
+  min-height: 12rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: color-mix(in oklch, var(--tile) 38%, var(--color-paper));
+}
+
+.chapter-tile[data-tone="peach"] { --tile: var(--peach-light); }
+.chapter-tile[data-tone="blue"]  { --tile: var(--dusty-blue-light); }
+
+.chapter-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 55%;
+}
+
+.chapter-number {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 100;
+  font-weight: 300;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: color-mix(in oklch, var(--brown-dark) 30%, transparent);
+  margin-bottom: auto;
+  padding-bottom: 1rem;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 100;
+  font-weight: 600;
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  color: var(--brown-dark);
+  overflow-wrap: break-word;
+}
+
+.chapter-count {
+  margin-top: 0.25rem;
+  font-size: var(--text-sm);
+  color: var(--brown-light);
+}
+
+/* The dish, served on a round plate that runs off the tile's corner */
+.chapter-plate {
+  position: absolute;
+  right: -1.25rem;
+  bottom: -1.25rem;
+  width: 10.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 0.6rem solid var(--color-paper);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.group:hover .chapter-plate {
+  transform: rotate(8deg);
+}
+
+@media (min-width: 768px) {
+  .chapter-tile-lead {
+    padding: 2rem;
+  }
+
+  /* Tall tile: text sits at the top with the full width, the plate below it */
+  .chapter-tile-lead .chapter-text {
+    max-width: 100%;
+  }
+
+  .chapter-tile-lead .chapter-number {
+    font-size: 6rem;
+    margin-bottom: 0;
+  }
+
+  .chapter-tile-lead .chapter-title {
+    font-size: var(--text-3xl);
+  }
+
+  .chapter-tile-lead .chapter-plate {
+    width: 17rem;
+    right: -2rem;
+    bottom: -2rem;
+    border-width: 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .chapter-plate {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   Popover (favorite lists, planner pickers)
+   ═══════════════════════════════════════════════ */
+
+.popover {
+  position: fixed;
+  z-index: 60;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  box-shadow: var(--shadow-panel);
+  animation: popover-in var(--dur-fast) var(--ease-out);
+}
+
+@keyframes popover-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.popover-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  color: var(--brown-dark);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.popover-option:hover:not(:disabled) {
+  background: var(--cream-dark);
+}
+
+.popover-option[aria-pressed="true"] {
+  background: color-mix(in oklch, var(--sage-light) 40%, transparent);
+  font-weight: 600;
+}
+
+.popover-option:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.popover-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.35rem;
+  border: 1.5px solid var(--color-rule-strong);
+  font-size: 0.75rem;
+  color: var(--color-accent-ink);
+}
+
+.popover-check[data-checked] {
+  background: var(--sage-dark);
+  border-color: var(--sage-dark);
+}
+
+.popover-input,
+.field {
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-rule-strong);
+  background: var(--color-paper);
+  color: var(--brown-dark);
+}
+
+.popover-input {
+  flex: 1;
+  font-size: var(--text-sm);
+}
+
+.popover-add {
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--sage-dark);
+  color: var(--color-accent-ink);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.popover-add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.popover-remove {
+  display: block;
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  width: 100%;
+  border-top: 1px solid var(--color-rule);
+  text-align: left;
+  font-size: var(--text-sm);
+  color: var(--peach-dark);
+  cursor: pointer;
+}
+
+.popover-remove:hover {
+  text-decoration: underline;
+}
+
+/* ═══════════════════════════════════════════════
+   Chips (favorite lists, planner options)
+   ═══════════════════════════════════════════════ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--radius-full);
+  background: var(--cream-dark);
+  color: var(--brown);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.chip:hover {
+  background: color-mix(in oklch, var(--sage-light) 45%, var(--cream-dark));
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--sage-dark);
+  color: var(--color-accent-ink);
+}
+
+.chip-count {
+  font-size: var(--text-xs);
+  opacity: 0.75;
+  font-variant-numeric: tabular-nums;
+}
+
+.chip-ghost {
+  background: transparent;
+  border: 1.5px dashed var(--color-rule-strong);
+}
+
+/* ═══════════════════════════════════════════════
+   Meal planner
+   ═══════════════════════════════════════════════ */
+
+.planner-toolbar {
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  background: var(--cream-dark);
+  margin-bottom: 1.5rem;
+}
+
+.planner-step {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  border-radius: var(--radius-full);
+  background: var(--color-paper);
+  color: var(--brown-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.planner-step:hover:not(:disabled) {
+  background: var(--sage-light);
+}
+
+.planner-step:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.planner-week {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+  list-style: none;
+  padding: 0;
+  margin: 0 0 4rem;
+}
+
+@media (min-width: 80rem) {
+  .planner-week {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+.planner-day {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0.85rem;
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+}
+
+.planner-day[data-today] {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 1px var(--sage);
+}
+
+.planner-dish {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.planner-dish-img {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--cream-dark);
+}
+
+.planner-free {
+  display: grid;
+  place-items: center;
+  gap: 0.25rem;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  border: 1.5px dashed var(--color-rule-strong);
+  color: var(--brown-light);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.planner-shopping {
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--color-rule);
+}
+
+.planner-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.planner-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.4rem 0.25rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.planner-check:hover {
+  background: var(--cream-dark);
+}
+
+.planner-check input {
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  accent-color: var(--sage-dark);
+}
+
+.planner-check-label {
+  color: var(--brown-dark);
+}
+
+.planner-check[data-checked] .planner-check-label {
+  color: var(--brown-light);
+  text-decoration: line-through;
 }

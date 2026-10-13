@@ -1,9 +1,11 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/hooks/useTheme';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme, isLoaded } = useTheme();
+  const t = useTranslations('nav');
 
   // Don't render anything until we know the theme (prevents hydration mismatch)
   if (!isLoaded) {
@@ -16,11 +18,12 @@ export default function ThemeToggle() {
     <button
       onClick={toggleTheme}
       className="relative w-10 h-10 rounded-full bg-cream-dark hover:bg-sage-light transition-all duration-300 flex items-center justify-center group"
-      aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-      title={theme === 'light' ? 'Dark mode' : 'Light mode'}
+      aria-label={theme === 'light' ? t('darkMode') : t('lightMode')}
+      title={theme === 'light' ? t('darkMode') : t('lightMode')}
     >
       {/* Sun icon */}
       <svg
+        aria-hidden="true"
         className={`absolute w-5 h-5 text-peach-dark transition-all duration-300 ${
           theme === 'light' 
             ? 'opacity-100 rotate-0 scale-100' 
@@ -40,6 +43,7 @@ export default function ThemeToggle() {
       
       {/* Moon icon */}
       <svg
+        aria-hidden="true"
         className={`absolute w-5 h-5 text-dusty-blue transition-all duration-300 ${
           theme === 'dark' 
             ? 'opacity-100 rotate-0 scale-100' 

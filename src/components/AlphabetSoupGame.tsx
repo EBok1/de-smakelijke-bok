@@ -17,7 +17,7 @@ const LETTER_PTS: Record<string, number> = {
   S: 1, T: 1, U: 1, V: 4, W: 4, X: 8, Y: 4, Z: 10,
 };
 
-// Pre-cached words avoid unnecessary dictionary API calls on first use
+// Pre-cached words skip the word-list request on first use
 const PRE_VALID = new Set([
   "THE","AND","FOR","NOT","YOU","BUT","HIS","HER","SHE","ONE",
   "ALL","OUT","WHO","GET","CAN","SEE","TWO","HOW","OUR","NEW",
@@ -49,7 +49,7 @@ const MIN_LETTER_SIZE = 22;
 const LETTER_SIZE_RATIO = 0.186;
 const MIN_WORD = 3;
 const STIR_MS = 2200;
-const DICT_API = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const WORD_API = "/api/word?w=";
 const STORAGE_KEY = "de-smakelijke-bok-alphabet-soup-v1";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -224,16 +224,16 @@ export default function AlphabetSoupGame() {
       return true;
     }
 
-    // Slow path — dictionary API
+    // Slow path — our own word-list route
     try {
-      const res = await fetch(`${DICT_API}${word.toLowerCase()}`);
-      gs.cache[word] = res.ok;
+      const res = await fetch(`${WORD_API}${word.toLowerCase()}`);
+      if (!res.ok) throw new Error(`word check failed: ${res.status}`);
+      const { valid } = (await res.json()) as { valid: boolean };
+      gs.cache[word] = valid;
       if (gs.selected.map(l => l.letter).join("") === word) syncWord(gs.selected);
-      return res.ok;
+      return valid;
     } catch {
-      // Network/API failure should NOT count as "valid", otherwise random
-      // selections look like they pass validation.
-      gs.cache[word] = false;
+      // A failed check is not a verdict: don't cache it, so the next try asks again
       return false;
     }
   };
@@ -673,18 +673,20 @@ export default function AlphabetSoupGame() {
           <p className="text-brown-light text-sm md:text-base">
             {t("subtitle")}
           </p>
-          {/* The dictionary API only supports English, so the UI is localised
+          {/* The word list only covers English, so the UI is localised
               but the words players spell are not. */}
-          <p className="text-brown-light/70 text-xs md:text-sm mt-1">
+          <p className="text-brown-light text-xs md:text-sm mt-1">
             {t("englishNote")}
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-6 max-w-lg mx-auto">
+        {/* Single column on phones; bowl beside the controls on desktop */}
+        <div className="flex flex-col items-center gap-6 max-w-lg mx-auto lg:max-w-6xl lg:flex-row lg:items-start lg:gap-20">
 
           {/* ── Bowl ── */}
+          <div className="w-full flex justify-center lg:w-[460px] lg:flex-none lg:sticky lg:top-28">
           <div
-            className="relative w-full max-w-[380px] md:max-w-[440px]"
+            className="soup-paper relative w-full max-w-[380px] md:max-w-[440px] lg:max-w-[480px]"
             style={{ aspectRatio: "1" }}
           >
             {/* Drop shadow under the plate */}
@@ -752,8 +754,32 @@ export default function AlphabetSoupGame() {
               />
             </div>
           </div>
+          </div>
 
-          {/* ── Word display ── */}
+          <div className="w-full flex flex-col items-center gap-6 lg:flex-1 lg:min-w-0">
+
+          {/* ── Word display ── feedback pops up right above it, where the player is looking */}
+          <div className="relative w-full">
+          <div
+            aria-live="polite"
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 flex flex-col items-center gap-2 z-20 pointer-events-none w-max max-w-full"
+          >
+            {messages.map(({ id, text, type }) => (
+              <div
+                key={id}
+                className={[
+                  "px-5 py-2.5 rounded-full text-center font-semibold text-sm shadow-md",
+                  "animate-[soup-msg_2.4s_forwards]",
+                  type === "success"  ? "bg-sage-dark text-white"   : "",
+                  type === "error"    ? "bg-peach-dark text-white"  : "",
+                  type === "checking" ? "bg-dusty-blue text-white"  : "",
+                  type === "default"  ? "bg-brown-dark text-cream"  : "",
+                ].join(" ")}
+              >
+                {text}
+              </div>
+            ))}
+          </div>
           <div
             ref={wordDisplayRef}
             id="soup-word-display"
@@ -764,15 +790,16 @@ export default function AlphabetSoupGame() {
               "shadow-sm transition-colors duration-200",
               wordStatus === "valid"   ? "bg-sage-dark text-white" : "",
               wordStatus === "invalid" ? "bg-peach-dark text-white" : "",
-              wordStatus === "neutral" ? "bg-white text-brown-dark" : "",
+              wordStatus === "neutral" ? "soup-paper bg-white text-brown-dark" : "",
               wordSuccessAnim ? "soup-word-success" : "",
             ].join(" ")}
           >
             {currentWord || (
-              <span className="text-brown-light/50 text-sm font-normal font-body tracking-normal">
+              <span className="text-brown-light text-sm font-normal font-body tracking-normal">
                 {t("placeholder")}
               </span>
             )}
+          </div>
           </div>
 
           {/* ── Control buttons ── */}
@@ -795,7 +822,7 @@ export default function AlphabetSoupGame() {
               type="button"
               onClick={resetProgress}
               disabled={isStirring}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-brown-dark text-white hover:bg-brown-dark/90 transition-all hover:-translate-y-0.5 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm bg-brown-dark text-cream hover:bg-brown-dark/90 transition-all hover:-translate-y-0.5 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
             >
               ↻ {t("reset")}
             </button>
@@ -809,13 +836,13 @@ export default function AlphabetSoupGame() {
           </div>
 
           {/* ── Scoreboard ── */}
-          <div className="w-full bg-white rounded-2xl p-5 shadow-sm">
+          <div className="soup-paper w-full bg-white rounded-2xl p-5 shadow-sm">
             <div className="flex justify-between items-center mb-3 pb-3 border-b border-cream-dark">
               <h3 className="font-bold text-brown-dark font-heading text-lg">{t("foundWords")}</h3>
               <span className="font-bold text-sage-dark text-lg">{t("score", { score })}</span>
             </div>
             {foundWords.length === 0 ? (
-              <p className="text-sm text-center py-2 text-brown-light/50">
+              <p className="text-sm text-center py-2 text-brown-light">
                 {t("noWordsYet")}
               </p>
             ) : (
@@ -836,7 +863,7 @@ export default function AlphabetSoupGame() {
           </div>
 
           {/* ── Instructions ── */}
-          <div className="w-full bg-white rounded-2xl p-5 shadow-sm mb-2">
+          <div className="soup-paper w-full bg-white rounded-2xl p-5 shadow-sm mb-2">
             <h3 className="font-bold text-brown-dark font-heading mb-2">{t("howToPlay")}</h3>
             <ol className="list-decimal list-inside space-y-1 text-sm text-brown-light">
               <li>{t("step1")}</li>
@@ -850,26 +877,8 @@ export default function AlphabetSoupGame() {
               </li>
             </ol>
           </div>
-        </div>
-      </div>
-
-      {/* Floating toast messages */}
-      <div className="fixed top-5 left-1/2 -translate-x-1/2 flex flex-col gap-2 z-50 pointer-events-none w-[90%] max-w-sm">
-        {messages.map(({ id, text, type }) => (
-          <div
-            key={id}
-            className={[
-              "px-5 py-3 rounded-full text-center font-semibold text-sm shadow-md",
-              "animate-[soup-msg_2.4s_forwards]",
-              type === "success"  ? "bg-sage-dark text-white"   : "",
-              type === "error"    ? "bg-peach-dark text-white"  : "",
-              type === "checking" ? "bg-dusty-blue text-white"  : "",
-              type === "default"  ? "bg-brown-dark text-white"  : "",
-            ].join(" ")}
-          >
-            {text}
           </div>
-        ))}
+        </div>
       </div>
 
       {/* Particle layer — fixed so particles fly over the whole page */}

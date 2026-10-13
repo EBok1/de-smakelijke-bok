@@ -35,6 +35,9 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
     'vegan': t('vegan'),
     'vegetarian': t('vegetarian'),
     'airfryer': t('airfryer'),
+    'healthy': t('healthy'),
+    'glutenfree': t('glutenfree'),
+    'salad': t('salad'),
   };
 
   // Calculate total time from prepTime and cookTime
@@ -56,7 +59,7 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
       href={`/${locale}/recipes/${recipe.slug}`}
       className="group block"
     >
-      <article className="card h-full flex flex-col overflow-hidden hover:shadow-lg transition-all duration-300">
+      <article className="card recipe-card h-full flex flex-col overflow-hidden">
         {/* Image */}
         <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden bg-cream">
           {recipe.image ? (
@@ -64,7 +67,7 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
               src={recipe.image}
               alt={recipe.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="recipe-card-img object-cover"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-sage-light to-peach-light">
@@ -96,9 +99,9 @@ export default function RecipeCard({ recipe, locale }: RecipeCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-lg font-bold text-brown-dark mb-2 group-hover:text-sage-dark transition-colors">
-            {recipe.title}
-          </h3>
+          <h2 className="recipe-title text-lg font-bold text-brown-dark mb-2">
+            <span className="marker">{recipe.title}</span>
+          </h2>
 
           {/* Description */}
           <p className="text-sm text-brown-light flex-1 line-clamp-2 mb-4">

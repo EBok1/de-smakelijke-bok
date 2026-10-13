@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -14,45 +15,52 @@ interface NavigationProps {
 export default function Navigation({ locale }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = useTranslations("nav");
+  const pathname = usePathname();
+
+  // Home only matches itself; the others also match their sub-pages
+  const isCurrent = (href: string) =>
+    href === `/${locale}` ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
 
   const navLinks = [
     { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/recipes`, label: t("recipes") },
+    { href: `/${locale}/planner`, label: t("planner") },
     { href: `/${locale}/about`, label: t("about") },
     { href: `/${locale}/favorites`, label: t("favorites"), icon: "♥" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-cream-dark transition-colors duration-300 p-4">
+    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-cream-dark transition-colors duration-300 px-4 pt-4 pb-2">
       <nav className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2 group">
             <Image
               src="/images/logo.png"
-              alt="De Smakelijke Bok"
+              alt=""
               width={50}
               height={50}
               className="rounded-full"
             />
-            <span className="font-heading font-bold text-lg text-brown-dark group-hover:text-sage-dark transition-colors hidden sm:block">
+            <span className="font-heading font-bold text-lg text-brown-dark group-hover:text-sage-dark transition-colors sr-only sm:not-sr-only">
               De Smakelijke Bok
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-1 lg:gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-1 text-brown font-medium hover:text-sage-dark transition-colors"
+                aria-current={isCurrent(link.href) ? "page" : undefined}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-full text-brown font-medium hover:text-sage-dark hover:bg-cream-dark transition-colors"
               >
-                {link.icon && <span className="text-peach">{link.icon}</span>}
+                {link.icon && <span className="text-peach" aria-hidden="true">{link.icon}</span>}
                 {link.label}
               </Link>
             ))}
-            <div className="flex items-center gap-2 ml-2">
+            <div className="flex items-center gap-2 ml-3 pl-4 border-l border-cream-dark">
               <LanguageSwitcher />
               <ThemeToggle />
             </div>
@@ -64,8 +72,9 @@ export default function Navigation({ locale }: NavigationProps) {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-lg hover:bg-cream-dark transition-colors"
-              aria-label="Toggle menu"
+              aria-label={t("menu")}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               <div className="w-6 h-5 relative flex flex-col justify-between">
                 <span
@@ -89,7 +98,10 @@ export default function Navigation({ locale }: NavigationProps) {
         </div>
 
         {/* Mobile Menu */}
+        {/* inert while closed: the links are only faded out, so keep them out of the tab order */}
         <div
+          id="mobile-menu"
+          inert={!isMenuOpen}
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isMenuOpen ? "max-h-80 opacity-100 mt-4" : "max-h-0 opacity-0"
           }`}
@@ -100,9 +112,10 @@ export default function Navigation({ locale }: NavigationProps) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
+                aria-current={isCurrent(link.href) ? "page" : undefined}
                 className="flex items-center gap-2 px-4 py-3 rounded-xl text-brown font-medium hover:bg-cream-dark hover:text-sage-dark transition-all"
               >
-                {link.icon && <span className="text-peach">{link.icon}</span>}
+                {link.icon && <span className="text-peach" aria-hidden="true">{link.icon}</span>}
                 {link.label}
               </Link>
             ))}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getAllRecipes } from "@/lib/recipes";
@@ -6,51 +7,19 @@ interface CategoryMasonryGridProps {
   locale: string;
 }
 
-// Each category tile has its own visual identity
-const CATEGORY_CONFIG = [
-  {
-    key: "main-course" as const,
-    labelKey: "mainCourse" as const,
-    descKey: "mainCourseDesc" as const,
-    emoji: "🍲",
-    // spans 2 rows on desktop — the "hero" tile
-    className:
-      "md:row-span-2 bg-sage-light/25 border-sage/30 hover:bg-sage-light/40",
-    emojiClass: "text-sage-dark",
-  },
-  {
-    key: "appetizer" as const,
-    labelKey: "appetizer" as const,
-    descKey: "appetizerDesc" as const,
-    emoji: "🥗",
-    className:
-      "bg-peach-light/30 border-peach/30 hover:bg-peach-light/50",
-    emojiClass: "text-peach-dark",
-  },
-  {
-    key: "dessert" as const,
-    labelKey: "dessert" as const,
-    descKey: "dessertDesc" as const,
-    emoji: "🍰",
-    className:
-      "bg-dusty-blue-light/25 border-dusty-blue/30 hover:bg-dusty-blue-light/40",
-    emojiClass: "text-dusty-blue",
-  },
-] as const;
+// Chapter numbers follow the menu, not the grid position; each chapter
+// gets its own paper colour from the kitchen tints
+const CHAPTERS = [
+  { key: "main-course" as const, labelKey: "mainCourse" as const, number: 2, tone: "sage" },
+  { key: "appetizer" as const, labelKey: "appetizer" as const, number: 1, tone: "peach" },
+  { key: "dessert" as const, labelKey: "dessert" as const, number: 3, tone: "blue" },
+];
 
 export default async function CategoryMasonryGrid({
   locale,
 }: CategoryMasonryGridProps) {
   const t = await getTranslations({ locale, namespace: "home" });
   const allRecipes = getAllRecipes(locale as "nl" | "en");
-
-  // Count recipes per category once
-  const countByCategory = {
-    "main-course": allRecipes.filter((r) => r.category === "main-course")
-      .length,
-    appetizer: allRecipes.filter((r) => r.category === "appetizer").length,
-    dessert: allRecipes.filter((r) => r.category === "dessert").length,
-  };
 
   return (
     <section className="py-12 md:py-16">
@@ -60,60 +29,51 @@ export default async function CategoryMasonryGrid({
         </h2>
 
         {/*
-         * Masonry-style grid:
-         * On desktop: 2 columns, 2 rows. The first tile (main-course)
-         * spans both rows so it sits tall on the left, while appetizer
-         * and dessert stack on the right.
-         *
-         * On mobile: single column, all tiles stacked.
+         * Same grid as before: main courses tall on the left, the other two
+         * chapters stacked on the right. Each tile is coloured paper with a
+         * big chapter number and a dish from that chapter served on a plate.
          */}
-        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 md:h-[420px]">
-          {CATEGORY_CONFIG.map(
-            ({ key, labelKey, descKey, emoji, className, emojiClass }) => {
-              const count = countByCategory[key];
+        <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 md:h-[460px]">
+          {CHAPTERS.map(({ key, labelKey, number, tone }, index) => {
+            const recipes = allRecipes.filter((r) => r.category === key);
+            const cover = recipes.find((r) => r.image)?.image;
+            const isLead = index === 0;
 
-              return (
-                <Link
-                  key={key}
-                  href={`/${locale}/recipes?category=${key}`}
-                  className={`
-                    group flex flex-col justify-between
-                    rounded-2xl border p-6
-                    transition-all duration-200
-                    hover:-translate-y-0.5 hover:shadow-md
-                    ${className}
-                  `}
-                >
-                  {/* Top: emoji + count */}
-                  <div className="flex items-start justify-between">
-                    <span className="text-4xl" role="img" aria-hidden="true">
-                      {emoji}
-                    </span>
-                    <span
-                      className={`text-sm font-medium opacity-70 ${emojiClass}`}
-                    >
-                      {t("categories.recipesCount", { count })}
-                    </span>
-                  </div>
-
-                  {/* Bottom: title + description + arrow */}
-                  <div>
-                    <h3 className="text-xl font-bold text-brown-dark mb-1 font-heading">
-                      {t(`categories.${labelKey}`)}
-                    </h3>
-                    <p className="text-sm text-brown-light leading-relaxed mb-3">
-                      {t(`categories.${descKey}`)}
-                    </p>
-                    <span
-                      className={`text-sm font-semibold ${emojiClass} group-hover:translate-x-1 inline-block transition-transform duration-150`}
-                    >
-                      {t("categories.browse")}
-                    </span>
-                  </div>
-                </Link>
-              );
-            },
-          )}
+            return (
+              <Link
+                key={key}
+                href={`/${locale}/recipes?category=${key}`}
+                className={`chapter-tile group ${isLead ? "md:row-span-2 chapter-tile-lead" : ""}`}
+                data-tone={tone}
+              >
+                <span className="chapter-text">
+                  <span className="chapter-number" aria-hidden="true">
+                    {String(number).padStart(2, "0")}
+                  </span>
+                  <span className="sr-only">
+                    {t("categories.chapter", { number })}:
+                  </span>
+                  <span className="recipe-title chapter-title">
+                    <span className="marker">{t(`categories.${labelKey}`)}</span>
+                  </span>
+                  <span className="chapter-count">
+                    {t("categories.recipesCount", { count: recipes.length })}
+                  </span>
+                </span>
+                {cover && (
+                  <span className="chapter-plate">
+                    <Image
+                      src={cover}
+                      alt=""
+                      fill
+                      sizes={isLead ? "18rem" : "10rem"}
+                      className="chapter-tile-img object-cover"
+                    />
+                  </span>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -27,8 +27,9 @@ export default async function RecipesPage({ params, searchParams }: RecipesPageP
   
   const recipes = filterRecipes(category, tag, locale as 'nl' | 'en');
 
+  // The ! is needed: .container's own padding rule in globals.css beats plain py-* utilities
   return (
-    <div className="container mx-auto px-4 py-8 md:py-12 animate-fade-in">
+    <div className="container mx-auto px-4 pt-12! pb-16! md:pt-16! md:pb-24! animate-fade-in">
       <RecipesHeader />
       <RecipeFilter locale={locale} />
       <RecipesList locale={locale} recipes={recipes} />

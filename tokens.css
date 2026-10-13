@@ -1,40 +1,56 @@
-/* Hallmark · genre: playful · design-system: design.md · designed-as-app
- * theme: custom (vibe: "warm parchment, herb-green, goat-kitchen cozy")
- * paper: oklch(97% 0.012 85) · accent: oklch(38% 0.120 148) herb-green
- * display: Fraunces · body: Satoshi
- * axes: light / roman-serif / chromatic-other (herb-green)
- * nav: N7 · footer: Ft8
+/* Hallmark · genre: editorial (soft register) · design-system: design.md · designed-as-app
+ * theme: custom · vibe: "watercolour storybook, goat's reading nook"
+ * paper: oklch(97.5% 0.010 80) · accent: #7d8b6f sage (the site's original greens)
+ * display: Fraunces (SOFT 100) · body: Geist
+ * axes: light / roman-serif / chromatic-other (sage)
+ *
+ * Imported by src/app/globals.css — this file is the source of truth.
  */
 
 :root {
-  /* ── Colour ─────────────────────────────────────────── */
-  --color-paper:      oklch(97% 0.012 85);   /* warm cream */
-  --color-paper-2:    oklch(92% 0.018 75);   /* card / section fill */
-  --color-rule:       oklch(89% 0.018 85);   /* hairlines */
-  --color-ink:        oklch(26% 0.022 55);   /* warm dark brown */
-  --color-ink-2:      oklch(44% 0.020 55);   /* secondary text */
-  --color-accent:     oklch(38% 0.120 148);  /* herb green */
-  --color-accent-ink: oklch(97% 0.008 148);  /* near-white on accent */
-  --color-focus:      oklch(55% 0.140 148);  /* focus ring */
+  /* ── Paper & ink ──────────────────────────────────────── */
+  --color-paper:        oklch(97.5% 0.010 80);   /* page cream */
+  --color-paper-2:      oklch(94% 0.016 72);     /* bands, cards */
+  --color-paper-3:      oklch(91% 0.028 50);     /* blush band — max one per page */
+  --color-ink:          oklch(30% 0.024 55);     /* headings, warm brown */
+  --color-ink-2:        oklch(42% 0.024 58);     /* body text */
+  --color-muted:        oklch(50% 0.022 65);     /* captions, meta */
+  --color-rule:         oklch(87% 0.020 72);     /* hairlines */
+  --color-rule-strong:  oklch(76% 0.024 70);     /* dotted leaders, input borders */
 
-  /* ── Typography ─────────────────────────────────────── */
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
-  --font-body:    "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  /* ── Accent: the only colour for CTAs, links, active states ── */
+  --color-accent:       #7d8b6f;                 /* sage dark */
+  --color-accent-soft:  #9baa8b;                 /* sage */
+  --color-accent-tint:  #b8c4ac;                 /* sage light */
+  --color-accent-ink:   oklch(98% 0.008 100);    /* text on accent fills */
+  --color-focus:        oklch(50% 0.130 135);
 
-  /* ── Type scale (1.25 ratio, 16px base) ─────────────── */
-  --text-xs:        0.64rem;
-  --text-sm:        0.8rem;
+  /* ── Kitchen tints: pulled from the illustrations. Backgrounds and
+        small state signals only — never CTAs or link text. ── */
+  --color-blush:        oklch(80% 0.060 45);
+  --color-blush-light:  oklch(91% 0.030 50);
+  --color-blush-deep:   oklch(52% 0.100 38);
+  --color-sky:          oklch(60% 0.045 235);
+  --color-sky-light:    oklch(87% 0.022 235);
+  --color-sky-deep:     oklch(50% 0.050 235);
+
+  /* ── Typography ───────────────────────────────────────── */
+  /* --font-fraunces / --font-geist are injected by next/font in [locale]/layout.tsx */
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-body:    var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+
+  --text-xs:        0.75rem;
+  --text-sm:        0.875rem;
   --text-base:      1rem;
-  --text-md:        1.25rem;
-  --text-lg:        1.5625rem;
-  --text-xl:        1.9531rem;
-  --text-2xl:       2.4414rem;
-  --text-3xl:       3.0518rem;
-  --text-4xl:       3.8147rem;
-  --text-display:   clamp(2.75rem, 5vw + 1rem, 5.25rem);
-  --text-display-s: clamp(2rem, 3.5vw + 0.75rem, 3.5rem);
+  --text-md:        1.125rem;
+  --text-lg:        1.375rem;
+  --text-xl:        1.75rem;
+  --text-2xl:       2.25rem;
+  --text-3xl:       2.75rem;
+  --text-display:   clamp(2.5rem, 3.2vw + 1.25rem, 4.25rem);
+  --text-display-s: clamp(2rem, 2.4vw + 1rem, 3rem);
 
-  /* ── Spacing (4 pt) ─────────────────────────────────── */
+  /* ── Spacing (4 pt) ───────────────────────────────────── */
   --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;
   --space-xs:  0.75rem;
@@ -45,37 +61,51 @@
   --space-2xl: 4.5rem;
   --space-3xl: 7rem;
 
-  /* ── Radius ──────────────────────────────────────────── */
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   12px;
-  --radius-pill: 9999px;
+  /* ── Radius ───────────────────────────────────────────── */
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    20px;
+  --radius-plate: 2.5rem;   /* illustration frames */
+  --radius-pill:  9999px;
 
-  /* ── Easings ─────────────────────────────────────────── */
+  /* ── Motion ───────────────────────────────────────────── */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+  --dur-fast:    150ms;
+  --dur-base:    220ms;
+  --dur-slow:    400ms;
 
-  /* ── Durations ───────────────────────────────────────── */
-  --dur-fast:   150ms;
-  --dur-short:  220ms;
-  --dur-medium: 400ms;
-
-  /* ── Shadows ─────────────────────────────────────────── */
-  --shadow-card:  0 2px 12px -4px oklch(38% 0.120 148 / 0.10);
-  --shadow-hover: 0 6px 24px -6px oklch(38% 0.120 148 / 0.15);
-  --shadow-nav:   0 1px 0 0 var(--color-rule);
+  /* ── Shadows (tinted toward ink, never pure black) ───── */
+  --shadow-card:  0 2px 12px -4px oklch(30% 0.024 55 / 0.12);
+  --shadow-hover: 0 8px 24px -10px oklch(30% 0.024 55 / 0.22);
+  --shadow-panel: 0 30px 60px -30px oklch(30% 0.024 55 / 0.35);
 }
 
 [data-theme="dark"] {
-  --color-paper:      oklch(18% 0.018 55);
-  --color-paper-2:    oklch(22% 0.020 55);
-  --color-rule:       oklch(30% 0.018 55);
-  --color-ink:        oklch(92% 0.008 80);
-  --color-ink-2:      oklch(70% 0.010 75);
-  --color-accent:     oklch(52% 0.130 148);
-  --color-accent-ink: oklch(16% 0.010 148);
-  --color-focus:      oklch(65% 0.140 148);
-  --shadow-card:  0 2px 12px -4px oklch(0% 0 0 / 0.30);
-  --shadow-hover: 0 6px 24px -6px oklch(0% 0 0 / 0.40);
+  --color-paper:        oklch(20% 0.014 60);
+  --color-paper-2:      oklch(24% 0.016 60);
+  --color-paper-3:      oklch(27% 0.022 45);
+  --color-ink:          oklch(93% 0.012 80);
+  --color-ink-2:        oklch(84% 0.014 75);
+  --color-muted:        oklch(72% 0.014 70);
+  --color-rule:         oklch(33% 0.016 60);
+  --color-rule-strong:  oklch(45% 0.018 60);
+
+  --color-accent:       #6b7d5e;
+  --color-accent-soft:  #8fa07f;
+  --color-accent-tint:  #a4b396;
+  --color-accent-ink:   oklch(98% 0.008 100);
+  --color-focus:        oklch(72% 0.130 135);
+
+  --color-blush:        oklch(60% 0.070 45);
+  --color-blush-light:  oklch(34% 0.035 45);
+  --color-blush-deep:   oklch(52% 0.090 38);
+  --color-sky:          oklch(58% 0.045 235);
+  --color-sky-light:    oklch(36% 0.025 235);
+  --color-sky-deep:     oklch(48% 0.050 235);
+
+  --shadow-card:  0 2px 12px -4px oklch(0% 0 0 / 0.35);
+  --shadow-hover: 0 8px 24px -10px oklch(0% 0 0 / 0.5);
+  --shadow-panel: 0 30px 60px -30px oklch(0% 0 0 / 0.6);
 }

@@ -173,3 +173,32 @@ export function getAllSlugs(): string[] {
     .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => fileName.replace(/\.md$/, ''));
 }
+
+export interface IngredientLine {
+  text: string;
+  /** The ### sub-heading the line sits under, e.g. "Saus" or "Dressing optie 2" */
+  section: string;
+}
+
+/** The bullet lines under "## Ingrediënten" / "## Ingredients", with their sub-headings. */
+export function getRecipeIngredients(slug: string, locale: Locale = 'nl'): IngredientLine[] {
+  const recipe = getRecipeBySlug(slug, locale);
+  if (!recipe) return [];
+
+  const lines: IngredientLine[] = [];
+  let inIngredients = false;
+  let section = '';
+
+  for (const raw of recipe.content.split('\n')) {
+    const line = raw.trim();
+    if (line.startsWith('## ')) {
+      inIngredients = /^## (ingrediënten|ingredienten|ingredients)\b/i.test(line);
+      section = '';
+    } else if (inIngredients && line.startsWith('### ')) {
+      section = line.slice(4).trim();
+    } else if (inIngredients && /^[-*] /.test(line)) {
+      lines.push({ text: line.slice(2).trim(), section });
+    }
+  }
+  return lines;
+}

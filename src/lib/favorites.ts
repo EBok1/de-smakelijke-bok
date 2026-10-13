@@ -1,44 +1,60 @@
 'use client';
 
-const FAVORITES_KEY = 'smakelijke-bok-favorites';
+import { createLocalStore } from './store';
 
-export function getFavorites(): string[] {
-  if (typeof window === 'undefined') return [];
-  
-  try {
-    const stored = localStorage.getItem(FAVORITES_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
+export interface FavoriteList {
+  id: string;
+  name: string;
+  slugs: string[];
 }
 
-export function addFavorite(slug: string): string[] {
-  const favorites = getFavorites();
-  if (!favorites.includes(slug)) {
-    favorites.push(slug);
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-  }
-  return favorites;
+// Same key as before, so existing favorites carry over
+export const favoritesStore = createLocalStore<string[]>('smakelijke-bok-favorites', []);
+export const favoriteListsStore = createLocalStore<FavoriteList[]>(
+  'smakelijke-bok-favorite-lists',
+  [],
+);
+
+export function addFavorite(slug: string) {
+  favoritesStore.set((prev) => (prev.includes(slug) ? prev : [...prev, slug]));
 }
 
-export function removeFavorite(slug: string): string[] {
-  const favorites = getFavorites().filter((f) => f !== slug);
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
-  return favorites;
+/** Unfavoriting also takes the recipe out of every list. */
+export function removeFavorite(slug: string) {
+  favoritesStore.set((prev) => prev.filter((s) => s !== slug));
+  favoriteListsStore.set((prev) =>
+    prev.map((list) => ({ ...list, slugs: list.slugs.filter((s) => s !== slug) })),
+  );
 }
 
-export function toggleFavorite(slug: string): { favorites: string[]; isFavorite: boolean } {
-  const favorites = getFavorites();
-  const isFavorite = favorites.includes(slug);
-  
-  if (isFavorite) {
-    return { favorites: removeFavorite(slug), isFavorite: false };
-  } else {
-    return { favorites: addFavorite(slug), isFavorite: true };
-  }
+export function createList(name: string, slug?: string): string {
+  const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+  favoriteListsStore.set((prev) => [
+    ...prev,
+    { id, name: name.trim(), slugs: slug ? [slug] : [] },
+  ]);
+  if (slug) addFavorite(slug);
+  return id;
 }
 
-export function isFavorite(slug: string): boolean {
-  return getFavorites().includes(slug);
+export function renameList(id: string, name: string) {
+  favoriteListsStore.set((prev) =>
+    prev.map((list) => (list.id === id ? { ...list, name: name.trim() } : list)),
+  );
+}
+
+export function deleteList(id: string) {
+  favoriteListsStore.set((prev) => prev.filter((list) => list.id !== id));
+}
+
+/** Putting a recipe in a list also makes it a favorite. */
+export function toggleInList(id: string, slug: string) {
+  favoriteListsStore.set((prev) =>
+    prev.map((list) => {
+      if (list.id !== id) return list;
+      const has = list.slugs.includes(slug);
+      return { ...list, slugs: has ? list.slugs.filter((s) => s !== slug) : [...list.slugs, slug] };
+    }),
+  );
+  addFavorite(slug);
 }

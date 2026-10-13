@@ -9,6 +9,7 @@ import { getRecipeBySlug, getAllSlugs } from '@/lib/recipes';
 import FavoriteButton from '@/components/FavoriteButton';
 import CookingModeToggle from '@/components/CookingModeToggle';
 import PrintButton from '@/components/PrintButton';
+import PlanButton from '@/components/PlanButton';
 import type { CSSProperties } from 'react';
 
 interface RecipeDetailPageProps {
@@ -118,6 +119,12 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
     'sweet': tFilter('sweet'),
     'savory': tFilter('savory'),
     'easy': tFilter('easy'),
+    'vegan': tFilter('vegan'),
+    'vegetarian': tFilter('vegetarian'),
+    'airfryer': tFilter('airfryer'),
+    'healthy': tFilter('healthy'),
+    'glutenfree': tFilter('glutenfree'),
+    'salad': tFilter('salad'),
   };
 
   return (
@@ -181,6 +188,7 @@ function RecipeHeader({ locale, recipe }: { locale: string; recipe: NonNullable<
       {/* Action buttons */}
       <div className="flex flex-wrap items-start justify-start gap-6 pt-4 print:hidden">
         <CookingModeToggle />
+        <PlanButton slug={recipe.slug} />
         <PrintButton />
       </div>
     </>

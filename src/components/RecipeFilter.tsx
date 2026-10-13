@@ -27,6 +27,7 @@ export default function RecipeFilter({ locale }: RecipeFilterProps) {
     { value: 'sweet', label: t('sweet') },
     { value: 'savory', label: t('savory') },
     { value: 'easy', label: t('easy') },
+    { value: 'healthy', label: t('healthy') },
     { value: 'vegan', label: t('vegan') },
     { value: 'vegetarian', label: t('vegetarian') },
     { value: 'airfryer', label: t('airfryer') },
@@ -52,10 +53,11 @@ export default function RecipeFilter({ locale }: RecipeFilterProps) {
           <button
             key={cat.value}
             onClick={() => updateFilter('category', cat.value)}
+            aria-pressed={currentCategory === cat.value}
             className={`
               px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
               ${currentCategory === cat.value 
-                ? 'bg-sage text-white shadow-md' 
+                ? 'bg-brown-dark text-cream shadow-md' 
                 : 'bg-cream-dark text-brown hover:bg-sage-light'
               }
             `}

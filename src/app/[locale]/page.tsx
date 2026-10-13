@@ -28,40 +28,43 @@ export default async function HomePage({ params }: HomePageProps) {
   // Enable static rendering
   setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: "home" });
   const recipes = getFeaturedRecipes(4, locale as "nl" | "en");
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
-      <section className="relative bg-linear-to-b from-cream to-cream-dark py-8 md:py-20 overflow-hidden">
-        <div className="container mx-auto px-4 relative" style={{ zIndex: 10 }}>
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            {/* Mascot Image */}
-            <div className="w-full md:w-1/2 flex justify-center">
-              <div className="relative w-56 h-56 md:w-80 md:h-80">
-                <Image
-                  src="/images/mascot.png"
-                  alt="De Smakelijke Bok mascot"
-                  fill
-                  className="object-contain drop-shadow-lg"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* Welcome Text */}
-            <div className="w-full md:w-1/2 text-center md:text-left">
-              <HomeContent locale={locale} />
-            </div>
-          </div>
-        </div>
-
+      {/* Hero — the illustration gets the room, veggies float up behind it */}
+      <section
+        className="frontis relative overflow-hidden bg-linear-to-b from-cream to-cream-dark"
+        aria-labelledby="home-title"
+      >
         <div
           className="absolute inset-0 overflow-hidden pointer-events-none"
           aria-hidden="true"
           style={{ zIndex: 0 }}
         >
           <VeggieBackground />
+        </div>
+
+        <div className="frontis-art" style={{ zIndex: 10 }}>
+          <Image
+            src="/images/mascot.png"
+            alt={t("mascotAlt")}
+            fill
+            priority
+            sizes="(min-width: 60rem) 58vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="frontis-text relative" style={{ zIndex: 10 }}>
+          <h1 id="home-title" className="frontis-title">
+            {t("welcome")}
+          </h1>
+          <p className="frontis-intro">{t("intro")}</p>
+          <Link href={`/${locale}/recipes`} className="btn btn-primary">
+            {t("viewAllRecipes")}
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
 
@@ -78,27 +81,6 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* Alphabet Soup Game */}
       <AlphabetSoupGame />
     </div>
-  );
-}
-
-function HomeContent({ locale }: { locale: string }) {
-  const t = useTranslations("home");
-
-  return (
-    <>
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brown-dark mb-4">
-        {t("welcome")}
-      </h1>
-      <p className="text-base md:text-lg text-brown-light mb-8 max-w-lg">{t("intro")}</p>
-      <Link
-        href={`/${locale}/recipes`}
-        className="inline-flex items-center gap-2 px-6 py-3 bg-sage-dark font-heading font-semibold rounded-full hover:bg-brown-dark transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-        style={{ color: "#ffffff" }}
-      >
-        {t("viewAllRecipes")}
-        <span>→</span>
-      </Link>
-    </>
   );
 }
 

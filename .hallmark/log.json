@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-10-13",
+    "scope": "page",
+    "macrostructure": "Letter (about)",
+    "theme": "custom",
+    "theme_axes": "light / roman-serif / chromatic-other (sage)",
+    "vibe": "watercolour storybook, goat's reading nook",
+    "enrichment": "existing logo illustration (side plate)",
+    "nav": "existing (token restyle)",
+    "footer": "existing (token restyle)",
+    "brief": "De Smakelijke Bok · about page redesign on the locked design.md system"
+  },
+  {
+    "date": "2026-10-12",
+    "scope": "app",
+    "macrostructure": "Index-First (home) · H9 frontispiece",
+    "theme": "custom",
+    "theme_axes": "light / roman-serif / chromatic-other (sage)",
+    "vibe": "watercolour storybook, goat's reading nook",
+    "enrichment": "H9 existing mascot illustration (frontispiece)",
+    "nav": "existing (token restyle)",
+    "footer": "existing (token restyle)",
+    "brief": "De Smakelijke Bok · homepage redesign + new design.md wired into code"
+  },
+  {
     "date": "2026-10-12",
     "scope": "app",
     "macrostructure": "Ecosystem Index (home) · Catalogue (recipes) · Letter (about)",
@@ -9,6 +33,6 @@
     "enrichment": "H9 mascot illustration (small accent)",
     "nav": "N7",
     "footer": "Ft8",
-    "brief": "De Smakelijke Bok · Dutch recipe site · whole-app redesign"
+    "brief": "De Smakelijke Bok · Dutch recipe site · whole-app redesign (never applied)"
   }
 ]

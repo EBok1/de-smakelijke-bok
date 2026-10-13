@@ -1,6 +1,6 @@
-import { useTranslations } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import Image from 'next/image';
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import Image from "next/image";
+import Link from "next/link";
 
 interface AboutPageProps {
   params: Promise<{ locale: string }>;
@@ -8,86 +8,92 @@ interface AboutPageProps {
 
 export async function generateMetadata({ params }: AboutPageProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'about' });
-  
+  const t = await getTranslations({ locale, namespace: "about" });
+
   return {
-    title: t('title'),
+    title: t("title"),
   };
 }
 
+// Title page — cookbook front matter, voorwoord, three questions (design.md § About)
 export default async function AboutPage({ params }: AboutPageProps) {
   const { locale } = await params;
-  
+
   // Enable static rendering
   setRequestLocale(locale);
 
-  return (
-    <div className="container mx-auto px-4 py-8 md:py-12 animate-fade-in">
-      <AboutContent />
-    </div>
-  );
-}
+  const t = await getTranslations({ locale, namespace: "about" });
 
-function AboutContent() {
-  const t = useTranslations('about');
+  const questions = [
+    { q: t("whoCooks"), a: <p>{t("whoCooksContent")}</p> },
+    { q: t("whyName"), a: <p>{t("whyNameContent")}</p> },
+    {
+      q: t("whereStart"),
+      a: (
+        <p>
+          {t("whereStartContent")}{" "}
+          <Link href={`/${locale}/recipes`} className="text-link">
+            {t("whereStartLink")} <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+      ),
+    },
+  ];
 
   return (
-    <div className="max-w-3xl mx-auto">
-      {/* Header with logo */}
-      <div className="text-center mb-12">
-        <div className="flex justify-center mb-6">
-          <Image
-            src="/images/logo.png"
-            alt="De Smakelijke Bok"
-            width={180}
-            height={180}
-            className="rounded-full shadow-lg"
-          />
-        </div>
-        <h1 className="text-3xl md:text-4xl font-bold text-brown-dark mb-4">
-          {t('title')}
+    <article className="titlepage container" aria-labelledby="about-title">
+      <header className="titlepage-head">
+        {/* The page title stays for screen readers; the book title is the visible heading */}
+        <h1 id="about-title" className="titlepage-title">
+          <span className="sr-only">{t("title")} — </span>
+          De Smakelijke
+          <br />
+          Bok
         </h1>
-      </div>
-
-      {/* Content Cards */}
-      <div className="space-y-8">
-        {/* About Card */}
-        <div className="card bg-gradient-to-br from-cream-dark to-cream p-8">
-          <p className="text-lg text-brown leading-relaxed">
-            {t('content')}
-          </p>
+        <div className="titlepage-ornament" aria-hidden="true">
+          <span />✻<span />
         </div>
+        <p className="titlepage-subtitle">{t("subtitle")}</p>
+      </header>
 
-        {/* Why the name Card */}
-        <div className="card bg-gradient-to-br from-peach-light/50 to-cream p-8">
-          <h2 className="text-2xl font-bold text-brown-dark mb-4 flex items-center gap-3">
-            <span className="text-3xl">🐐</span>
-            {t('whyName')}
-          </h2>
-          <p className="text-lg text-brown leading-relaxed">
-            {t('whyNameContent')}
-          </p>
-        </div>
+      <figure className="titlepage-art">
+        <Image
+          src="/images/logo.png"
+          alt={t("portraitAlt")}
+          width={1024}
+          height={1024}
+          priority
+          sizes="(min-width: 60rem) 22rem, 70vw"
+        />
+      </figure>
 
-        {/* Fun decorative section */}
-        <div className="flex flex-wrap justify-center gap-4 py-8">
-          <div className="w-16 h-16 bg-sage-light rounded-full flex items-center justify-center text-2xl shadow-md">
-            🍝
-          </div>
-          <div className="w-16 h-16 bg-peach-light rounded-full flex items-center justify-center text-2xl shadow-md">
-            🥗
-          </div>
-          <div className="w-16 h-16 bg-dusty-blue-light rounded-full flex items-center justify-center text-2xl shadow-md">
-            🍰
-          </div>
-          <div className="w-16 h-16 bg-sage-light rounded-full flex items-center justify-center text-2xl shadow-md">
-            🥘
-          </div>
-          <div className="w-16 h-16 bg-peach-light rounded-full flex items-center justify-center text-2xl shadow-md">
-            🍜
-          </div>
-        </div>
-      </div>
-    </div>
+      <section className="titlepage-section" aria-labelledby="about-foreword">
+        <h2 id="about-foreword" className="titlepage-h2">
+          {t("foreword")}
+        </h2>
+        <p className="titlepage-foreword">{t("content")}</p>
+      </section>
+
+      <section className="titlepage-section" aria-labelledby="about-questions">
+        <h2 id="about-questions" className="titlepage-h2">
+          {t("questionsTitle")}
+        </h2>
+        <dl className="qa">
+          {questions.map(({ q, a }) => (
+            <div key={q} className="qa-row">
+              <dt className="qa-q">{q}</dt>
+              <dd className="qa-a">{a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <footer className="titlepage-close">
+        <p>
+          {t("signoff")}
+          <span className="titlepage-signature">{t("signature")}</span>
+        </p>
+      </footer>
+    </article>
   );
 }

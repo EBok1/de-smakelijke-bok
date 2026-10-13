@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-12",
+  "design_md": "present (design.md) — never wired into code; no src file references tokens.css, Fraunces, Satoshi or --color-*",
+  "fonts": "Nunito + Quicksand via Google Fonts @import (src/app/globals.css L1)",
+  "palette": "hex custom properties --cream/--sage/--peach/--dusty-blue/--brown + dark mode (src/app/globals.css L4-69), mapped to Tailwind v4 via @theme inline (L71-85)",
+  "motion": "animejs 4, matter-js (soup game), next-view-transitions — motion-on",
+  "spacing": "Tailwind default scale, no --space-* tokens in use",
+  "framework": "Next.js 16.1 app router + next-intl (nl/en) + Tailwind v4",
+  "conflicts": [
+    "design.md + tokens.css describe Fraunces/Satoshi/herb-green; live code uses Nunito/Quicksand/sage-peach",
+    "Inline color: #ffffff on primary CTA (src/app/[locale]/page.tsx L97) bypasses tokens"
+  ]
+}
